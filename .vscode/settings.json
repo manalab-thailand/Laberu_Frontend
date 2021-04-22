@@ -1,0 +1,10 @@
+{
+  "vetur.validation.template": false,
+  "vetur.format.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "vue"
+  ],
+}
