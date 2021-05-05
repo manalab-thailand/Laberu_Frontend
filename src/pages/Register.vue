@@ -66,7 +66,10 @@
                     filled
                     v-model="birth"
                     mask="####-##-##"
-                    :rules="['birth']"
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) || 'Please type something',
+                    ]"
                   >
                     <template v-slot:append>
                       <q-icon
@@ -127,7 +130,21 @@
                 </div>
                 <div style="margin: 0 10px"></div>
                 <div class="col">
-                  <q-input
+                  <q-select
+                    filled
+                    color="grey-3"
+                    label-color="primary"
+                    transition-show="jump-up"
+                    transition-hide="jump-up"
+                    v-model="province"
+                    :options="province_th"
+                    label="Province"
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) || 'Please type something',
+                    ]"
+                  />
+                  <!-- <q-input
                     filled
                     color="grey-3"
                     label-color="primary"
@@ -138,11 +155,11 @@
                       (val) =>
                         (val && val.length > 0) || 'Please type something',
                     ]"
-                  >
-                    <template v-slot:append>
+                  > -->
+                  <!-- <template v-slot:append>
                       <q-icon name="" color="primary" />
-                    </template>
-                  </q-input>
+                    </template> -->
+                  <!-- </q-input> -->
                 </div>
               </div>
               <div class="row">
@@ -210,6 +227,85 @@ export default {
       location: null,
       phone_number: null,
       accept: false,
+      province_th: [
+        "กรุงเทพฯ",
+        "กระบี่",
+        "กาญจนบุรี",
+        "กาฬสินธุ์",
+        "กำแพงเพชร",
+        "ขอนแก่น",
+        "จันทบุรี",
+        "ฉะเชิงเทรา",
+        "ชลบุรี",
+        "ชัยนาท",
+        "ชัยภูมิ",
+        "ชุมพร",
+        "เชียงใหม่",
+        "เชียงราย",
+        "ตรัง",
+        "ตราด",
+        "ตาก",
+        "นครนายก",
+        "นครปฐม",
+        "นครพนม",
+        "นครราชสีมา",
+        "นครศรีธรรมราช",
+        "นครสวรรค์",
+        "นนทบุรี",
+        "นราธิวาส",
+        "น่าน",
+        "บึงกาฬ",
+        "บุรีรัมย์",
+        "ปทุมธานี",
+        "ประจวบคีรีขันธ์",
+        "ปราจีนบุรี",
+        "ปัตตานี",
+        "พระนครศรีอยุธยา",
+        "พะเยา",
+        "พังงา",
+        "พัทลุง",
+        "พิจิตร",
+        "พิษณุโลก",
+        "เพชรบุรี",
+        "เพชรบูรณ์",
+        "แพร่",
+        "ภูเก็ต",
+        "มหาสารคาม",
+        "มุกดาหาร",
+        "แม่ฮ่องสอน",
+        "ยโสธร",
+        "ยะลา",
+        "ร้อยเอ็ด",
+        "ระนอง",
+        "ระยอง",
+        "ราชบุรี",
+        "ลพบุรี",
+        "ลำปาง",
+        "ลำพูน",
+        "เลย",
+        "ศรีสะเกษ",
+        "สกลนคร",
+        "สงขลา",
+        "สตูล",
+        "สมุทรปราการ",
+        "สมุทรสงคราม",
+        "สมุทรสาคร",
+        "สระแก้ว",
+        "สระบุรี",
+        "สิงห์บุรี",
+        "สุโขทัย",
+        "สุพรรณบุรี",
+        "สุราษฎร์ธานี",
+        "สุรินทร์",
+        "หนองคาย",
+        "หนองบัวลำภู",
+        "อ่างทอง",
+        "อำนาจเจริญ",
+        "อุดรธานี",
+        "อุตรดิตถ์",
+        "อุทัยธานี",
+        "อุบลราชธานี",
+      ],
     };
   },
   components: {
