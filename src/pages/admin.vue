@@ -77,7 +77,7 @@ export default {
     };
   },
   async mounted() {
-    await this.checkStatusAdmin();
+    // await this.checkStatusAdmin();
   },
   methods: {
     async checkStatusAdmin() {
