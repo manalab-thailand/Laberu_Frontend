@@ -125,8 +125,8 @@ export default {
   data() {
     return {
       config: {
-        // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
-        url: "http://localhost:8080",
+        url: "https://laberu-ptrmd2zvzq-as.a.run.app",
+        // url: "http://localhost:8080",
       },
       userData: {
         _id: null,

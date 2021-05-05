@@ -199,8 +199,8 @@ export default {
   data() {
     return {
       config: {
-        // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
-        url: "http://localhost:8080",
+        url: "https://laberu-ptrmd2zvzq-as.a.run.app",
+        // url: "http://localhost:8080",
       },
       fname: null,
       lname: null,
@@ -250,7 +250,7 @@ export default {
           career: this.career,
           province: this.province,
           location: this.location,
-          status: "user",
+          status: "ีuser",
           uid: this.user_uid,
         }).then(async (response) => {
           this.onTimeout();
