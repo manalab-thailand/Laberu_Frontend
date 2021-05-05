@@ -16,12 +16,11 @@ export default ({ app, router, Vue, store }) => {
         if (authRequired) {
             if (isAuthenticated) {
                 // User is already signed in. Continue on.
-                console.log("Authenticated");
                 next();
             } else {
                 // Not signed in. Redirect to login page.
                 next({
-                    name: "signin",
+                    name: "login",
                     params: { nextUrl: to.fullPath }
                 });
             }

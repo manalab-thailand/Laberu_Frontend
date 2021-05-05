@@ -142,11 +142,10 @@ export default {
     async getUser() {
       try {
         const response = await Axios.get(`${this.config.url}/user`);
-
         this.user = await Promise.all(
           response.data.map(async (item) => {
             const countSuccess = await Axios.get(
-              `${this.config.url}/task-success/findByUser/${item._id}/true`
+              `${this.config.url}/task-success/findByUser/user_id=${item._id}&accept=true`
             );
             return { name: item.email, total: countSuccess.data, id: item._id };
           })
@@ -158,7 +157,7 @@ export default {
     async getTaskSuccessByUser() {
       try {
         const response = await Axios.get(
-          `${this.config.url}/task-success/findImageByUser/${this.selected[0].id}`
+          `${this.config.url}/task-success/findImageByUser/user_id=${this.selected[0].id}`
         );
         this.images = response.data;
       } catch (error) {
@@ -168,7 +167,7 @@ export default {
     async RandomImageByUser() {
       try {
         const response = await Axios.get(
-          `${this.config.url}/task-success/randomImageByUser/${this.selected[0].id}`
+          `${this.config.url}/task-success/randomImageByUser/user_id=${this.selected[0].id}`
         );
         this.onDialog(-1, response.data[0]);
       } catch (error) {}

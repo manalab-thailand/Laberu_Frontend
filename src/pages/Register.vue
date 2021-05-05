@@ -61,20 +61,32 @@
               <div class="row">
                 <div class="col">
                   <q-input
-                    filled
-                    color="grey-3"
-                    type="number"
+                    label="Birth"
                     label-color="primary"
-                    outlined
-                    v-model="age"
-                    label="Age"
-                    :rules="[
-                      (val) =>
-                        (val !== null && val !== '') || 'Please type your age',
-                      (val) =>
-                        (val > 0 && val < 100) || 'Please type a real age',
-                    ]"
+                    filled
+                    v-model="birth"
+                    mask="####-##-##"
+                    :rules="['birth']"
                   >
+                    <template v-slot:append>
+                      <q-icon
+                        name="event"
+                        class="cursor-pointer"
+                        color="primary"
+                      >
+                        <q-popup-proxy
+                          ref="qDateProxy"
+                          transition-show="scale"
+                          transition-hide="scale"
+                        >
+                          <q-date
+                            label-color="primary"
+                            v-model="birth"
+                            @input="() => $refs.qDateProxy.hide()"
+                          ></q-date>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
                   </q-input>
                 </div>
                 <div style="margin: 0 10px"></div>
@@ -94,6 +106,59 @@
                     <template v-slot:append>
                       <q-icon name="phone" color="primary" />
                     </template>
+                  </q-input>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <q-input
+                    filled
+                    color="grey-3"
+                    label-color="primary"
+                    outlined
+                    v-model="career"
+                    label="Career"
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) || 'Please type something',
+                    ]"
+                  >
+                  </q-input>
+                </div>
+                <div style="margin: 0 10px"></div>
+                <div class="col">
+                  <q-input
+                    filled
+                    color="grey-3"
+                    label-color="primary"
+                    outlined
+                    v-model="province"
+                    label="Province"
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) || 'Please type something',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="" color="primary" />
+                    </template>
+                  </q-input>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <q-input
+                    filled
+                    color="grey-3"
+                    label-color="primary"
+                    outlined
+                    v-model="location"
+                    label="Location"
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) || 'Please type something',
+                    ]"
+                  >
                   </q-input>
                 </div>
               </div>
@@ -134,12 +199,15 @@ export default {
   data() {
     return {
       config: {
-        url: "https://laberu-ptrmd2zvzq-as.a.run.app",
+        // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
         // url: "http://localhost:8080",
       },
       fname: null,
       lname: null,
-      age: null,
+      birth: null,
+      career: null,
+      province: null,
+      location: null,
       phone_number: null,
       accept: false,
     };
@@ -174,16 +242,20 @@ export default {
     async createAccount() {
       try {
         await Axios.post(`${this.config.url}/user/create`, {
-          fname: this.fname,
-          lname: this.lname,
+          firstname: this.fname,
+          lastname: this.lname,
           email: this.user_email,
-          age: this.age,
-          phone_number: this.phone_number,
+          birth: this.birth,
+          phonenumber: this.phone_number,
+          career: this.career,
+          province: this.province,
+          location: this.location,
+          status: "ีuser",
           uid: this.user_uid,
         }).then(async (response) => {
           this.onTimeout();
           await this.getUserID();
-          this.$router.push("/tutorial");
+          this.$router.push({ name: "index" });
         });
       } catch (error) {
         console.log(error);
@@ -192,7 +264,7 @@ export default {
     async getUserID() {
       try {
         const response = await this.$axios.get(
-          `${this.config.url}/user/check_login/${this.user_uid}`
+          `${this.config.url}/user/check_login/uid=${this.user_uid}`
         );
         this.setUserID({ id: response.data[0]._id });
       } catch (error) {

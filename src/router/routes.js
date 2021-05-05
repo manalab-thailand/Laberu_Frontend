@@ -1,21 +1,13 @@
 const routes = [
     {
         path: '/', component: () => import('layouts/MainLayout.vue'),
-    },
-    {
-        path: '/index', component: () => import('pages/Index.vue')
-    },
-    {
-        path: '/profile', component: () => import('pages/Profile.vue')
-    },
-    {
-        path: '/register', component: () => import('pages/Register.vue')
-    },
-    {
-        path: '/tutorial', component: () => import('pages/Tutorial.vue')
-    },
-    {
-        path: '/admin', component: () => import('pages/Admin.vue')
+        children: [
+            { path: '/', name: "login", component: () => import('pages/Login.vue'), meta: { authRequired: false } },
+            { path: '/index', name: "index", component: () => import('pages/Index.vue'), meta: { authRequired: true } },
+            { path: '/admin', name: "admin", component: () => import('pages/Admin.vue'), meta: { authRequired: true } },
+            { path: '/profile', name: "profile", component: () => import('pages/Profile.vue'), meta: { authRequired: true } },
+            { path: '/register', name: "register", component: () => import('pages/Register.vue'), meta: { authRequired: true } },
+        ],
     },
     {
         path: '*',

@@ -177,7 +177,7 @@ export default {
     return {
       tags: [],
       config: {
-        url: "https://laberu-ptrmd2zvzq-as.a.run.app",
+        // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
         // url: "http://localhost:8080",
         project_name: null,
         baseImageUrl: null,
@@ -220,9 +220,9 @@ export default {
     this.logout();
   },
   async mounted() {
-    await this.configProject();
-    await this.setUserData();
-    await this.initState();
+    // await this.configProject();
+    // await this.setUserData();
+    // await this.initState();
   },
   methods: {
     async initState() {
@@ -281,7 +281,7 @@ export default {
     async getImageByUser() {
       try {
         const response = await Axios.get(
-          `${this.config.url}/task-image/findImage/${this.user._id}`
+          `${this.config.url}/task-image/findImage/user_id=${this.user._id}`
         );
 
         if (response.data[0] != null) {
@@ -301,7 +301,7 @@ export default {
     async setImageData() {
       try {
         const response = await Axios.get(
-          `${this.config.url}/image-data/${this.taskImage.shortcode}`
+          `${this.config.url}/image-data/shortcode=${this.taskImage.shortcode}`
         );
         this.dataImage._id = response.data[0]._id;
         this.dataImage.shortcode = response.data[0].shortcode;
@@ -316,7 +316,7 @@ export default {
     async updateStatusTask(inputStatus, timeStamp) {
       try {
         await Axios.put(
-          `${this.config.url}/task-image/update_status/${this.taskImage._id}`,
+          `${this.config.url}/task-image/update_status/_id=${this.taskImage._id}`,
           {
             time_start: timeStamp,
             status: inputStatus,
@@ -328,7 +328,7 @@ export default {
     },
     async getUserTaskSuccess() {
       const response = await Axios.get(
-        `${this.config.url}/task-success/findByUser/${this.user._id}/true`
+        `${this.config.url}/task-success/findByUser/user_id=${this.user._id}&accept=true`
       );
       this.user.count = response.data;
     },
@@ -379,12 +379,12 @@ export default {
     },
     async checkConfig() {
       const countSuccess = await Axios.get(
-        `${this.config.url}/task-success/findCountByShortcode/${this.taskImage.shortcode}`
+        `${this.config.url}/task-success/findCountByShortcode/shortcode=${this.taskImage.shortcode}`
       );
       if (countSuccess.data == Number(this.config.labelingCount)) {
         try {
           await Axios.put(
-            `${this.config.url}/task-image/update_process/${this.taskImage._id}`,
+            `${this.config.url}/task-image/update_process/_id=${this.taskImage._id}`,
             {
               time_start: 0,
               status: true,
@@ -398,7 +398,7 @@ export default {
     },
     async goProfilePage() {
       await this.updateStatusTask(false, 0);
-      this.$router.push("/Profile");
+      this.$router.push({ name: "profile" });
     },
     async resetStatusTask() {
       try {
