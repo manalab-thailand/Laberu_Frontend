@@ -21,7 +21,7 @@ export default ({ app, router, Vue, store }) => {
             } else {
                 // Not signed in. Redirect to login page.
                 next({
-                    name: "signin",
+                    name: "login",
                     params: { nextUrl: to.fullPath }
                 });
             }

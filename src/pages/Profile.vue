@@ -70,40 +70,32 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-2 paddingCol">
-                  <div class="profileBG">{{ this.userData.age }}</div>
+                <div class="col-3 paddingCol">
+                  <div class="profileBG">{{ this.userData.birth }}</div>
                 </div>
-                <div class="col-4 paddingCol">
+                <div class="col-3 paddingCol">
                   <div class="profileBG">{{ this.userData.phone_number }}</div>
                 </div>
                 <div class="col-6 paddingCol">
                   <div class="profileBG">{{ this.userData.email }}</div>
                 </div>
               </div>
-              <!-- <div class="row">
-                <div class="col paddingCol">
-                  <div class="profileBG">???????????????????????</div>
-                </div>
-              </div> -->
 
               <div class="row">
+                <div class="col-3 paddingCol">
+                  <div class="profileBG">{{ this.userData.career }}</div>
+                </div>
+                <div class="col-9 paddingCol">
+                  <div class="profileBG">{{ this.userData.location }}</div>
+                </div>
+              </div>
+
+              <div class="row" style="margin: 0 2px">
                 <div class="col paddingCol">
                   <div class="totalText">
                     ยอดรวมทั้งหมด : {{ this.userData.countSuccess }}
                   </div>
                 </div>
-                <div class="col paddingCol">
-                  <div class="acceptText">
-                    ยอมรับ : {{ this.userData.countSuccess }}
-                  </div>
-                </div>
-                <div class="col paddingCol">
-                  <div class="declineText">
-                    ปฏิเสธ : {{ this.userData.countNotSuccess }}
-                  </div>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col paddingCol">
                   <div class="totalMoneyText">
                     เงินสุทธิ : {{ this.userData.countSuccess }} ฿
@@ -133,16 +125,18 @@ export default {
   data() {
     return {
       config: {
-        url: "https://laberu-ptrmd2zvzq-as.a.run.app",
-        // url: "http://localhost:8080",
+        // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
+        url: "http://localhost:8080",
       },
       userData: {
         _id: null,
         fname: null,
         lname: null,
-        age: null,
+        birth: null,
         phone_number: null,
         email: null,
+        career: null,
+        location: null,
         countSuccess: null,
         countNotSuccess: null,
       },
@@ -158,27 +152,25 @@ export default {
   methods: {
     async getUserData() {
       const response = await Axios.get(
-        `${this.config.url}/user/check_login/${this.user_uid}`
+        `${this.config.url}/user/check_login/uid=${this.user_uid}`
       );
 
       this.userData._id = response.data[0]._id;
-      this.userData.fname = response.data[0].fname;
-      this.userData.lname = response.data[0].lname;
-      this.userData.age = response.data[0].age;
+      this.userData.fname = response.data[0].firstname;
+      this.userData.lname = response.data[0].lastname;
+      this.userData.birth = response.data[0].birth;
       this.userData.email = response.data[0].email;
-      this.userData.phone_number = response.data[0].phone_number;
+      this.userData.phone_number = response.data[0].phonenumber;
+      this.userData.career = response.data[0].career;
+      this.userData.location = response.data[0].location;
     },
 
     async getUserTaskSuccess() {
       const success = await Axios.get(
-        `${this.config.url}/task-success/findByUser/${this.userData._id}/true`
+        `${this.config.url}/task-success/findByUser/user_id=${this.userData._id}&accept=true`
       );
 
-      const notSuccess = await Axios.get(
-        `${this.config.url}/task-success/findByUser/${this.userData._id}/false`
-      );
       this.userData.countSuccess = success.data;
-      this.userData.countNotSuccess = notSuccess.data;
     },
 
     async returnIndexPage() {
