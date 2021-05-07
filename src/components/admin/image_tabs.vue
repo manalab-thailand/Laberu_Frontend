@@ -118,10 +118,10 @@ export default {
       },
     };
   },
-  async mounted() {
-    await this.configProject();
-    await this.getTaskImage();
-  },
+  // async mounted() {
+  //   await this.configProject();
+  //   await this.getTaskImage();
+  // },
   methods: {
     async configProject() {
       try {

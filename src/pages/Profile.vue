@@ -1,45 +1,5 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <div class="text-white toolbarT">
-        <q-toolbar class="row full-height justify-center">
-          <q-btn flat @click="$router.push('/index')">
-            <q-icon name="img:../icons/icon.png" size="3rem" />
-            <q-toolbar-title class="titleName" style="padding: 0px">
-              <strong>LABERU.AI</strong>
-            </q-toolbar-title>
-          </q-btn>
-          <q-space />
-          <div class="user">
-            <div class="text-h6 text-center navUsername">
-              {{ this.userData.email }}
-            </div>
-          </div>
-          <q-btn
-            flat
-            round
-            dense
-            icon="account_circle"
-            class="text-blue-grey-7"
-            size="20px"
-          >
-            <q-menu touch-position>
-              <q-list style="min-width: 100px">
-                <q-item v-close-popup>
-                  <q-btn
-                    color="red"
-                    label="Logout"
-                    @click="logout()"
-                    size="md"
-                    v-close-popup
-                  />
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
-        </q-toolbar>
-      </div>
-    </q-header>
     <background-display></background-display>
 
     <q-page-container style="padding-top: 0">
