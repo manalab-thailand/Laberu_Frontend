@@ -19,10 +19,10 @@
         <div class="row justify-around">
           <div class="col-lg-1"></div>
           <div class="col-lg-4">
-            <q-card-section align="center" style="left: 3rem">
+            <q-card-section align="center" style="left: 3rem;color:white">
               <div class="text-h4">
                 Image Labelling
-                <div class="text-subtitle2">by LABERU</div>
+                <div class="text-subtitle2" style="color:white">by LABERU</div>
               </div>
               <div class="q-pa-md">
                 <imageDisplay></imageDisplay>
