@@ -1,56 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <div class="text-white toolbarT">
-        <q-toolbar class="row full-height justify-center">
-          <q-btn flat>
-            <q-icon name="img:../icons/icon.png" size="3rem" />
-            <q-toolbar-title class="titleName" style="padding: 0px">
-              <strong>LABERU.AI</strong>
-            </q-toolbar-title>
-          </q-btn>
-          <q-space />
-          <div class="user">
-            <div class="text-h6 text-center navUsername">
-              {{ this.user_email }}
-            </div>
-          </div>
-          <q-btn
-            flat
-            round
-            dense
-            icon="account_circle"
-            class="text-blue-grey-7"
-            size="20px"
-          >
-            <q-menu touch-position>
-              <q-list style="min-width: 100px">
-                <q-item v-close-popup>
-                  <q-btn
-                    class="profileBtn"
-                    label="Profile"
-                    @click="goProfilePage()"
-                    size="md"
-                    v-close-popup
-                  />
-                </q-item>
-                <q-item v-close-popup>
-                  <q-btn
-                    color="red"
-                    label="Logout"
-                    @click="logout()"
-                    size="md"
-                    v-close-popup
-                  />
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
-        </q-toolbar>
-      </div>
-    </q-header>
     <backgroundDisplay></backgroundDisplay>
-
     <q-page-container style="padding-top: 0">
       <div class="context">
         <div class="row justify-around">
@@ -72,17 +22,15 @@
                       style="margin: 0 15px 0 0"
                     />
                   </div> -->
-                </div>
-              </q-card-section>
 
-              <q-card-section>
-                <div class="q-pa-md">
-                  <img
-                    :src="this.image.url"
-                    alt=""
-                    class="imgMain"
-                    width="100%"
-                    height="auto"
+                </div>
+                <div class="col text-right">
+                  <q-btn
+                    color="primary"
+                    label="SKIP"
+                    @click="onSkip()"
+                    class="btnSkip"
+                    style="margin: 0 15px 0 0"
                   />
                 </div>
                 <div class="imgID">
@@ -146,9 +94,10 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
-    </q-page-container>
+    </div>
   </q-layout>
 </template>
 
@@ -469,10 +418,6 @@ export default {
 </script>
 
 <style scoped src="../css/index.css">
-vue-tags-input {
-  background-color: rgb(0, 230, 57);
-  color: rgb(255, 255, 255);
-}
 </style>
 
 
