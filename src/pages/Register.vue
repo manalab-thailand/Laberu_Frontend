@@ -1,17 +1,5 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <div class="text-white toolbarT">
-        <q-toolbar class="row full-height justify-center">
-          <q-btn flat>
-            <q-icon name="img:../icons/icon.png" size="3rem" />
-            <q-toolbar-title class="titleName" style="padding: 0px">
-              <strong>LABERU.AI</strong>
-            </q-toolbar-title>
-          </q-btn>
-        </q-toolbar>
-      </div>
-    </q-header>
     <background-display></background-display>
 
     <q-page-container style="padding-top: 0">
