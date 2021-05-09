@@ -24,9 +24,10 @@
   }
   .profileBG {
     color: #6a6969;
-    padding: 10px 10px 10px 10px;
-    border-radius: 10px;
+    padding: 7px 7px 7px 7px;
+    border-radius: 5px;
     background-color: #e3dcdc;
+    font-size: 18px;
   }
   .profileLabel {
     text-align: center;
@@ -88,4 +89,9 @@
     font-size: 20px;
     line-height: 1.715em;
     font-weight: 500;
+}
+.dataProfile{
+  font-size: 16px;
+  margin-left: 3px;
+  margin-top: -8px;
 }

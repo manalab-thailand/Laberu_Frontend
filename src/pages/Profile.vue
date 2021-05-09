@@ -72,13 +72,12 @@
     </q-card>
     </div> -->
     <div class="row justify-center">
-      <div class="context" style="width: 80%">
+      <div class="context" style="width: 70%">
         <q-splitter v-model="splitterModel" style="height: auto">
           <template v-slot:before>
             <q-tabs v-model="tab" vertical class="text-teal">
               <q-tab name="general" icon="mail" label="ข้อมูลทั่วไป/General" />
               <q-tab name="stat" icon="alarm" label="สถิติ/Stat" />
-              <q-tab name="payment" icon="movie" label="โอนเงิน/Payment" />
             </q-tabs>
           </template>
 
@@ -93,86 +92,65 @@
             >
               <q-tab-panel name="general">
                 <div class="col-12">
-              <div class="row">
-                <div class="col paddingCol">
-                  <div class="profileBG">{{ this.userData.fname }}</div>
-                </div>
-                <div class="col paddingCol">
-                  <div class="profileBG">{{ this.userData.lname }}</div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-3 paddingCol">
-                  <div class="profileBG">{{ this.userData.birth }}</div>
-                </div>
-                <div class="col-3 paddingCol">
-                  <div class="profileBG">{{ this.userData.phone_number }}</div>
-                </div>
-                <div class="col-6 paddingCol">
-                  <div class="profileBG">{{ this.userData.email }}</div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-3 paddingCol">
-                  <div class="profileBG">{{ this.userData.career }}</div>
-                </div>
-                <div class="col-9 paddingCol">
-                  <div class="profileBG">{{ this.userData.location }}</div>
-                </div>
-              </div>
-
-              <div class="row" style="margin: 0 2px">
-                <div class="col paddingCol">
-                  <div class="totalText">
-                    ยอดรวมทั้งหมด : {{ this.userData.countSuccess }}
+                  <div class="row">
+                    <div class="col paddingCol">
+                      <div class="dataProfile">ชื่อ/Name</div>
+                      <div class="profileBG">WATTANA</div>
+                    </div>
+                    <div class="col paddingCol">
+                      <div class="dataProfile">นามสกุล/Surname</div>
+                      <div class="profileBG">PONGPAEW</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col paddingCol">
+                      <div class="dataProfile">วันเกิด/DateofBirth</div>
+                      <div class="profileBG">27/01/1999</div>
+                    </div>
+                    <div class="col paddingCol">
+                      <div class="dataProfile">อาชีพ/Career</div>
+                      <div class="profileBG">นักศึกษา</div>
+                    </div>
+                    <div class="col paddingCol">
+                      <div class="dataProfile">จังหวัด/Province</div>
+                      <div class="profileBG">พังงา</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col paddingCol">
+                      <div class="dataProfile">อีเมลล์/Email</div>
+                      <div class="profileBG">endnapadad25@gmail.com</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col paddingCol">
+                      <div class="dataProfile">ที่อยู่/Resident</div>
+                      <div class="profileBG">
+                        หอพักนักศึกษาชาย(ห้องพักG21) 80/1 ม.1 ถ.วิชิตสงคราม
+                        ต.กะทู้ อ.กะทู้ จ.ภูเก็ต 83120 โทร.0630809112
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col paddingCol">
-                  <div class="totalMoneyText">
-                    เงินสุทธิ : {{ this.userData.countSuccess }} ฿
-                  </div>
-                </div>
-              </div>
-            </div>
               </q-tab-panel>
 
               <q-tab-panel name="stat">
-                <div class="text-h4 q-mb-md">Alarms</div>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                  praesentium cumque magnam odio iure quidem, quod illum numquam
-                  possimus obcaecati commodi minima assumenda consectetur culpa
-                  fuga nulla ullam. In, libero.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                  praesentium cumque magnam odio iure quidem, quod illum numquam
-                  possimus obcaecati commodi minima assumenda consectetur culpa
-                  fuga nulla ullam. In, libero.
-                </p>
-              </q-tab-panel>
-
-              <q-tab-panel name="payment">
-                <div class="text-h4 q-mb-md">Movies</div>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                  praesentium cumque magnam odio iure quidem, quod illum numquam
-                  possimus obcaecati commodi minima assumenda consectetur culpa
-                  fuga nulla ullam. In, libero.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                  praesentium cumque magnam odio iure quidem, quod illum numquam
-                  possimus obcaecati commodi minima assumenda consectetur culpa
-                  fuga nulla ullam. In, libero.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                  praesentium cumque magnam odio iure quidem, quod illum numquam
-                  possimus obcaecati commodi minima assumenda consectetur culpa
-                  fuga nulla ullam. In, libero.
-                </p>
+                <q-expansion-item
+                  dense
+                  dense-toggle
+                  expand-separator
+                  icon="perm_identity"
+                  label="Account settings"
+                >
+                  <q-card>
+                    <q-card-section>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Quidem, eius reprehenderit eos corrupti commodi magni
+                      quaerat ex numquam, dolorum officiis modi facere maiores
+                      architecto suscipit iste eveniet doloribus ullam aliquid.
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
               </q-tab-panel>
             </q-tab-panels>
           </template>
