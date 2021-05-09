@@ -1,16 +1,28 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <backgroundDisplay></backgroundDisplay>
-    <div class="context">
-      <div class="row justify-around">
-        <div class="col-md-6">
-          <q-card class="cardIMG" style="left: 20%">
-            <q-card-section>
-              <div class="row">
-                <div class="col">
-                  <div class="imgNumber text-left" style="text-right">
-                    Image#{{ this.user.count }}
+    <q-page-container style="padding-top: 0">
+      <div class="context">
+        <div class="row justify-around">
+          <div class="col-md-6">
+            <q-card class="cardIMG" style="left: 16%">
+              <q-card-section>
+                <div class="row">
+                  <div class="col">
+                    <div class="imgNumber text-left" style="text-right">
+                      Image#{{ this.user.count }}
+                    </div>
                   </div>
+                  <!-- <div class="col text-right">
+                    <q-btn
+                      color="primary"
+                      label="SKIP"
+                      @click="onSkip()"
+                      class="btnSkip"
+                      style="margin: 0 15px 0 0"
+                    />
+                  </div> -->
+
                 </div>
                 <div class="col text-right">
                   <q-btn
@@ -21,69 +33,68 @@
                     style="margin: 0 15px 0 0"
                   />
                 </div>
+                <div class="imgID">
+                  Image ID : {{ this.taskImage.shortcode }}
+                </div>
+              </q-card-section>
+            </q-card>
+          </div>
+          <div class="col-6">
+            <div class="column" style="height: 100%">
+              <div class="col">
+                <q-card class="cardText" style="left: 12%">
+                  <q-card-actions vertical>
+                    <div style="max-width: 90% align-item-center" row="100">
+                      <div style="margin-top: 0">
+                        <q-list class="rounded-borders" style="max-width: 100%">
+                          <q-expansion-item
+                            label="Guide"
+                            icon="link"
+                            style="font-weight: bold; font-size: 16px"
+                          >
+                            <q-card style="padding: 0px 20px 10px 20px">
+                              <q-card-section>
+                                {{ this.dataImage.description_english }}
+                              </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </q-list>
+                      </div>
+                    </div>
+                  </q-card-actions>
+                </q-card>
               </div>
-            </q-card-section>
-
-            <q-card-section>
-              <div class="q-pa-md">
-                <img
-                  :src="this.image.url"
-                  alt=""
-                  class="imgMain"
-                  width="100%"
-                  height="auto"
-                />
-              </div>
-              <div class="imgID">Image ID : {{ this.taskImage.shortcode }}</div>
-            </q-card-section>
-          </q-card>
-        </div>
-        <div class="col-md-6">
-          <q-card class="cardText" style="left: 15%">
-            <q-card-actions vertical>
-              <div style="max-width: 90% align-item-center" row="100">
-                <div style="margin-top: 0">
-                  <q-list class="rounded-borders" style="max-width: 100%">
-                    <q-expansion-item
-                      label="Guide"
-                      icon="link"
-                      style="font-weight: bold; font-size: 16px"
+              <div class="col"></div>
+              <div class="col">
+                <q-card class="cardText" style="left: 12%; top: 5%">
+                  <q-card-actions vertical>
+                    <div
+                      class="q-pa-md"
+                      style="max-width: 90% align-item-center"
+                      row="100"
                     >
-                      <q-card style="padding: 0px 20px 10px 20px">
-                        <q-card-section>
-                          {{ this.dataImage.description_english }}
-                        </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </q-list>
+                      <vue-tags-input
+                        v-model="taskSuccess.description"
+                        :tags="tags"
+                        @tags-changed="(newTags) => (tags = newTags)"
+                      />
+                    </div>
+                  </q-card-actions>
+                </q-card>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="operationBtn">
+                      <q-btn class="btnSkip" label="Skip" @click="onSave()" />
+                    </div>
+                    <div class="operationBtn">
+                      <q-btn class="btnSave" label="Save" @click="onSave()" />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </q-card-actions>
-          </q-card>
+            </div>
+          </div>
 
-          <q-card class="cardText" style="left: 15%; top: 3%">
-            <q-card-section>
-              <div class="text-h6 text-center">
-                <b>Describe the Image</b>
-              </div>
-            </q-card-section>
-            <q-card-actions vertical>
-              <div
-                class="q-pa-md"
-                style="max-width: 90% align-item-center"
-                row="100"
-              >
-                <vue-tags-input
-                  v-model="taskSuccess.description"
-                  :tags="tags"
-                  @tags-changed="(newTags) => (tags = newTags)"
-                />
-                <div class="btnSave">
-                  <q-btn class="btnColor" label="Save" @click="onSave()" />
-                </div>
-              </div>
-            </q-card-actions>
-          </q-card>
         </div>
       </div>
     </div>
