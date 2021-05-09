@@ -50,9 +50,11 @@
   }
   .profileCard {
     border-radius: 10px;
-    width: 700px;
+    width: 1200px;
     padding: 30px 30px 30px 30px;
+    
   }
+
   .q-pa-md {
     padding: 16px 16px;
     margin: -20px 0 0 0;
@@ -76,6 +78,14 @@
   .context {
     width: 100%;
     position: absolute;
-    top: 10rem;
+    top: 7rem;
   }
-  
+  .bgColor{
+    background-color: black;
+    color: white;
+  }
+  .q-tab__label {
+    font-size: 20px;
+    line-height: 1.715em;
+    font-weight: 500;
+}

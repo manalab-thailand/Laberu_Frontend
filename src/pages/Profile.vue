@@ -1,8 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <background-display></background-display>
+    <!-- <background-display></background-display> -->
 
-    <q-page-container style="padding-top: 0">
+    <!-- <q-page-container style="padding-top: 0">
       <div class="context">
         <div class="fixed-center">
           <q-card class="profileCard">
@@ -66,7 +66,119 @@
           </q-card>
         </div>
       </div>
-    </q-page-container>
+    </q-page-container> -->
+    <!-- <div class="">
+      <q-card class="my-card">
+    </q-card>
+    </div> -->
+    <div class="row justify-center">
+      <div class="context" style="width: 80%">
+        <q-splitter v-model="splitterModel" style="height: auto">
+          <template v-slot:before>
+            <q-tabs v-model="tab" vertical class="text-teal">
+              <q-tab name="general" icon="mail" label="ข้อมูลทั่วไป/General" />
+              <q-tab name="stat" icon="alarm" label="สถิติ/Stat" />
+              <q-tab name="payment" icon="movie" label="โอนเงิน/Payment" />
+            </q-tabs>
+          </template>
+
+          <template v-slot:after>
+            <q-tab-panels
+              v-model="tab"
+              animated
+              swipeable
+              vertical
+              transition-prev="jump-up"
+              transition-next="jump-up"
+            >
+              <q-tab-panel name="general">
+                <div class="col-12">
+              <div class="row">
+                <div class="col paddingCol">
+                  <div class="profileBG">{{ this.userData.fname }}</div>
+                </div>
+                <div class="col paddingCol">
+                  <div class="profileBG">{{ this.userData.lname }}</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3 paddingCol">
+                  <div class="profileBG">{{ this.userData.birth }}</div>
+                </div>
+                <div class="col-3 paddingCol">
+                  <div class="profileBG">{{ this.userData.phone_number }}</div>
+                </div>
+                <div class="col-6 paddingCol">
+                  <div class="profileBG">{{ this.userData.email }}</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-3 paddingCol">
+                  <div class="profileBG">{{ this.userData.career }}</div>
+                </div>
+                <div class="col-9 paddingCol">
+                  <div class="profileBG">{{ this.userData.location }}</div>
+                </div>
+              </div>
+
+              <div class="row" style="margin: 0 2px">
+                <div class="col paddingCol">
+                  <div class="totalText">
+                    ยอดรวมทั้งหมด : {{ this.userData.countSuccess }}
+                  </div>
+                </div>
+                <div class="col paddingCol">
+                  <div class="totalMoneyText">
+                    เงินสุทธิ : {{ this.userData.countSuccess }} ฿
+                  </div>
+                </div>
+              </div>
+            </div>
+              </q-tab-panel>
+
+              <q-tab-panel name="stat">
+                <div class="text-h4 q-mb-md">Alarms</div>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                  praesentium cumque magnam odio iure quidem, quod illum numquam
+                  possimus obcaecati commodi minima assumenda consectetur culpa
+                  fuga nulla ullam. In, libero.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                  praesentium cumque magnam odio iure quidem, quod illum numquam
+                  possimus obcaecati commodi minima assumenda consectetur culpa
+                  fuga nulla ullam. In, libero.
+                </p>
+              </q-tab-panel>
+
+              <q-tab-panel name="payment">
+                <div class="text-h4 q-mb-md">Movies</div>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                  praesentium cumque magnam odio iure quidem, quod illum numquam
+                  possimus obcaecati commodi minima assumenda consectetur culpa
+                  fuga nulla ullam. In, libero.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                  praesentium cumque magnam odio iure quidem, quod illum numquam
+                  possimus obcaecati commodi minima assumenda consectetur culpa
+                  fuga nulla ullam. In, libero.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
+                  praesentium cumque magnam odio iure quidem, quod illum numquam
+                  possimus obcaecati commodi minima assumenda consectetur culpa
+                  fuga nulla ullam. In, libero.
+                </p>
+              </q-tab-panel>
+            </q-tab-panels>
+          </template>
+        </q-splitter>
+      </div>
+    </div>
   </q-layout>
 </template>
 
@@ -75,76 +187,11 @@ import backgroundDisplay from "../components/login_animation";
 import { mapGetters } from "vuex";
 import Axios from "app/node_modules/axios";
 export default {
-  computed: {
-    ...mapGetters({
-      user_email: "user_email/user_email",
-      user_id: "user_id/user_id",
-      user_uid: "user_uid/user_uid",
-    }),
-  },
   data() {
     return {
-      config: {
-        // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
-        // url: "http://localhost:8080",
-      },
-      userData: {
-        _id: null,
-        fname: null,
-        lname: null,
-        birth: null,
-        phone_number: null,
-        email: null,
-        career: null,
-        location: null,
-        countSuccess: null,
-        countNotSuccess: null,
-      },
+      tab: "general",
+      splitterModel: 20,
     };
-  },
-  components: {
-    backgroundDisplay,
-  },
-  async mounted() {
-    // await this.getUserData();
-    // await this.getUserTaskSuccess();
-  },
-  methods: {
-    async getUserData() {
-      const response = await Axios.get(
-        `${this.config.url}/user/check_login/uid=${this.user_uid}`
-      );
-
-      this.userData._id = response.data[0]._id;
-      this.userData.fname = response.data[0].firstname;
-      this.userData.lname = response.data[0].lastname;
-      this.userData.birth = response.data[0].birth;
-      this.userData.email = response.data[0].email;
-      this.userData.phone_number = response.data[0].phonenumber;
-      this.userData.career = response.data[0].career;
-      this.userData.location = response.data[0].location;
-    },
-
-    async getUserTaskSuccess() {
-      const success = await Axios.get(
-        `${this.config.url}/task-success/findByUser/user_id=${this.userData._id}&accept=true`
-      );
-
-      this.userData.countSuccess = success.data;
-    },
-
-    async returnIndexPage() {
-      this.$router.push("/index");
-    },
-
-    logout() {
-      this.$auth
-        .signOut()
-        .then(() => {
-          this.$router.push("/");
-        })
-        .catch((error) => {});
-    },
   },
 };
 </script>
