@@ -1,100 +1,113 @@
-.exampleWay input {
-  font-size: 15px;
-  font-weight: 500;
-  opacity: 1;
+  .iconSize {
+    font-size: 50px;
+    padding: 0 0 0 50px;
+  }
+
+  .operationBtn{
+    padding: 10px 10px 10px 10px;
+    margin-top: 4%;
+    width: 274px;
+    height: 4rem;
+    margin-left: 2.1rem;
+  }
+
+  .btnSave {
+    width: 95%;
+    background-color: #6bce2e;
+    color: white;
+    height: 100%;
+    font-size: 14px;
+  }
+
+  .btnSkip {
+    width: 95%;
+    background-color: #D46AFF;
+    color: white;
+    left: 19%;
+    height: 100%;
+    font-size: 14px;
+  }
+
+  .context {
+    width: 100%;
+    position: absolute;
+    top: 3rem;
+  }
+
+  .guideThing{
+  margin-top: 4rem;
+
+  }
+
+  .imgArea{
+    width: 650px;
+    height: 500px;
+    margin-top: 4rem;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+  }
+
+  img {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-width: 100%;
 }
-.exampleWay {
-  height: 5rem;
+
+.container-inner {
+  position: relative;
+  padding-bottom: 75%;
 }
-.navUsername {
-  color: black;
+
+.container {
+  max-width: 105vh;
 }
-.imgNumber {
-  padding: 5px 0 0 15px;
-  font-weight: bold;
-  font-size: 18px;
-}
-.imgID {
-  padding: 0 15px 0 0;
-  text-align: right;
-  font-size: 10px;
-}
-.detail {
-  padding: 5px 0 0 20px;
-  font-weight: bold;
-  font-size: 18px;
-}
-.ProfileIMG {
-  color: black;
-  padding: 0 0 0 50px;
-  font-size: 40px;
-}
-.iconIMG {
-  font-size: 50px;
-  padding: 0 0 0 50px;
-}
-.cardIMG {
-  width: 700px;
-  border-radius: 10px;
-}
-.cardText {
-  width: 500px;
-  border-radius: 10px;
-}
-.cardProfile {
-  margin: 30px 0 0 0;
-  width: 500px;
-  height: 200px;
-  border-radius: 10px;
-}
-.imgMain {
-  width: 100%;
-  border-radius: 5px;
-}
-.imgID {
-  margin: -10px 0 0 0;
-  font-size: 10px;
-}
-.q-pa-md {
-  padding: 16px 16px;
-  margin: -20px 0 0 0;
-}
-.btnSkip {
-  border-radius: 5px;
-  font-size: 12px;
-  width: 20%;
-  height: 90%;
-}
-.btnColor {
-  width: 90%;
-  background-color: #6bce2e;
-  color: white;
-}
-.textDescribe {
-  resize: none !important;
-}
-.q-textarea .q-field__native {
-  resize: none;
-  padding-top: 17px;
-  min-height: 52px;
-}
-.btnSave {
-  padding: 10px 10px 10px 10px;
-  text-align: center;
-}
-.toolbarT {
-  height: 80px;
-  background: #f8f8f8;
-}
-.titleName {
-  color: #666877;
-}
-.my-card {
-  width: 400px;
-  border-radius: 10px;
-}
-.context {
-  width: 100%;
-  position: absolute;
-  top: 7rem;
-}
+
+  .left3{
+    margin-left: 3%;
+  }
+
+  .left5{
+    margin-left: 5%;
+  }
+
+  .left15{
+    margin-left: 15%;
+  }
+
+  .imgNo{
+    font-size: 20px;
+    font: bold;
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .exampleBtn1{
+    background-color: #fff;
+    width: 280px;
+    height: 50px;
+    text-align: center;
+  }
+
+  .exampleBtn2{
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    width: 280px;
+    height: 50px;
+    text-align: center;
+  }
+
+  .skipBtn{
+    background-color: #D46AFF;
+    color: #fff;
+    width: 280px;
+    height: 50px;
+    text-align: center;
+  }
+
+  .exampleBtnText{
+    font-size: 16px;
+    font-weight: 500;
+  }
