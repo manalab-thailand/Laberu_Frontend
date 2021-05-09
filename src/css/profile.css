@@ -1,8 +1,9 @@
 .totalMoneyText {
     text-align: right;
-    font-weight: bold;
-    font-size: 14px;
-    color: #4f4b4b;
+    font-weight: normal;
+    font-size: 16px;
+    color: white;
+    padding-right: 40px;
   }
   .acceptText {
     text-align: center;
@@ -17,16 +18,18 @@
     color: #4f4b4b;
   }
   .totalText {
-    text-align: left;
-    font-weight: bold;
-    font-size: 14px;
-    color: #4f4b4b;
+    padding-left: 40px;
+    font-weight: normal;
+    font-size: 16px;
+    color: white;
   }
   .profileBG {
     color: #6a6969;
-    padding: 10px 10px 10px 10px;
-    border-radius: 10px;
-    background-color: #e3dcdc;
+    padding: 7px 7px 7px 7px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-weight: 200;
   }
   .profileLabel {
     text-align: center;
@@ -50,9 +53,11 @@
   }
   .profileCard {
     border-radius: 10px;
-    width: 700px;
+    width: 1200px;
     padding: 30px 30px 30px 30px;
+    
   }
+
   .q-pa-md {
     padding: 16px 16px;
     margin: -20px 0 0 0;
@@ -76,6 +81,32 @@
   .context {
     width: 100%;
     position: absolute;
-    top: 10rem;
+    top: 7rem;
   }
-  
+  .bgColor{
+    background-color: #393A3F;
+    color: white;
+  }
+  .q-tab__label {
+    font-size: 20px;
+    line-height: 1.715em;
+    font-weight: 500;
+}
+.dataProfile{
+  font-size: 16px;
+  margin-left: 3px;
+  margin-top: -8px;
+  color: white;
+}
+.statMenu{
+  font-size: 22px;
+  font-weight: bolder;
+  color: white;
+}
+.paddingStat {
+  padding: 10px;
+}
+.generalMenu{
+  color: grey;
+  padding-right: 25px;
+}
