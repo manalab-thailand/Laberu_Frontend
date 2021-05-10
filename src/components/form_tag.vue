@@ -1,43 +1,98 @@
 <template>
-  <div>
-    <label for="tags-pills">
-      <!-- Enter new tags separated by space at least 5 word -->
-      {{ this.value }}
-    </label>
-    <b-form-tags
-      input-id="tags-remove-on-delete"
-      :input-attrs="{ 'aria-describedby': 'tags-remove-on-delete-help' }"
-      v-model="value"
-      tag-variant="primary"
-      tag-pills
-      separator=" "
-      placeholder="Add word"
-      remove-on-delete
-      no-add-on-enter
-    ></b-form-tags>
+  <div class="tags-input-container">
+    <input v-model="tagValue" @keyup.enter="addTag" placeholder="พิมพ์..." />
+
+    <div class="tag" v-for="(tag, index) in tags" :key="'tag' + index">
+      <span v-if="activeTag !== index" @click="activeTag = index">
+        {{ tag }}
+      </span>
+      <input
+        v-else
+        v-model="tags[index]"
+        v-focus
+        :style="{ width: tag.length + 'ch' }"
+        @keyup.enter="activeTag = null"
+        @blur="activeTag = null"
+      />
+      <span @click="removeTag(index)"><i class="fas fa-times-circle"></i></span>
+    </div>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import { BootstrapVue } from "bootstrap-vue";
-import "bootstrap-vue/dist/bootstrap-vue.css";
-
-Vue.use(BootstrapVue);
-
 export default {
-  data() {
+  props: ["value"],
+  data: () => {
     return {
-      value: [],
+      tagValue: "",
+      tags: [],
+      activeTag: null,
     };
   },
-  methods: {},
+  watch: {
+    value(val) {
+      if (val.length == 0) {
+        this.tags = [];
+      }
+    },
+  },
+  methods: {
+    addTag() {
+      if (!this.tagValue == "") this.tags.push(this.tagValue);
+
+      this.$emit("changeMessage", this.tags);
+
+      this.tagValue = "";
+    },
+    removeTag(index) {
+      this.tags.splice(index, 1);
+    },
+  },
+  directives: {
+    focus: {
+      inserted: (el) => {
+        el.focus();
+      },
+    },
+  },
 };
 </script>
 
+<style lang="scss" scoped>
+.tags-input-container {
+  width: 100%;
+  max-width: 600px;
+  padding: 10px;
+  background-color: rgba($color: #ffffff, $alpha: 0.7);
 
-<style scoped lang="scss">
-::v-deep {
-  @import "bootstrap/scss/bootstrap.scss";
+  input {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    font-size: 1rem;
+  }
+  .tag {
+    float: left;
+    padding: 3px 5px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+      background-color: #57c340;
+      border-radius: 5px;
+    }
+    span:first-child {
+      margin-right: 8px;
+    }
+    svg {
+      color: #666;
+      &:hover {
+        color: #333;
+      }
+    }
+  }
 }
 </style>
