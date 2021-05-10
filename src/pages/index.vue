@@ -1,100 +1,125 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <backgroundDisplay></backgroundDisplay>
-    <q-page-container style="padding-top: 0">
-      <div class="context">
-        <div class="row justify-around">
-          <div class="col-md-6">
-            <q-card class="cardIMG" style="left: 16%">
-              <q-card-section>
-                <div class="row">
-                  <div class="col">
-                    <div class="imgNumber text-left" style="text-right">
-                      Image#{{ this.user.count }}
-                    </div>
-                  </div>
-                  <!-- <div class="col text-right">
-                    <q-btn
-                      color="primary"
-                      label="SKIP"
-                      @click="onSkip()"
-                      class="btnSkip"
-                      style="margin: 0 15px 0 0"
-                    />
-                  </div> -->
-
-                </div>
-                <div class="col text-right">
-                  <q-btn
-                    color="primary"
-                    label="SKIP"
-                    @click="onSkip()"
-                    class="btnSkip"
-                    style="margin: 0 15px 0 0"
-                  />
-                </div>
-                <div class="imgID">
-                  Image ID : {{ this.taskImage.shortcode }}
-                </div>
-              </q-card-section>
-            </q-card>
-          </div>
-          <div class="col-6">
-            <div class="column" style="height: 100%">
-              <div class="col">
-                <q-card class="cardText" style="left: 12%">
-                  <q-card-actions vertical>
-                    <div style="max-width: 90% align-item-center" row="100">
-                      <div style="margin-top: 0">
-                        <q-list class="rounded-borders" style="max-width: 100%">
-                          <q-expansion-item
-                            label="Guide"
-                            icon="link"
-                            style="font-weight: bold; font-size: 16px"
-                          >
-                            <q-card style="padding: 0px 20px 10px 20px">
-                              <q-card-section>
-                                {{ this.dataImage.description_english }}
-                              </q-card-section>
-                            </q-card>
-                          </q-expansion-item>
-                        </q-list>
-                      </div>
-                    </div>
-                  </q-card-actions>
-                </q-card>
-              </div>
-              <div class="col"></div>
-              <div class="col">
-                <q-card class="cardText" style="left: 12%; top: 5%">
-                  <q-card-actions vertical>
-                    <div
-                      class="q-pa-md"
-                      style="max-width: 90% align-item-center"
-                      row="100"
-                    >
-                      <vue-tags-input
-                        v-model="taskSuccess.description"
-                        :tags="tags"
-                        @tags-changed="(newTags) => (tags = newTags)"
-                      />
-                    </div>
-                  </q-card-actions>
-                </q-card>
-                <div class="col-md-6">
-                  <div class="row">
-                    <div class="operationBtn">
-                      <q-btn class="btnSkip" label="Skip" @click="onSave()" />
-                    </div>
-                    <div class="operationBtn">
-                      <q-btn class="btnSave" label="Save" @click="onSave()" />
-                    </div>
-                  </div>
-                </div>
+    <div class="context">
+      <div class="row">
+        <div class="col-6">
+          <div class="imgArea left15">
+            <div class="container">
+              <div
+                class="container-inner"
+                style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px"
+              >
+                <img src="../images/image_3.jpg" />
               </div>
             </div>
           </div>
+        </div>
+        <div class="col-6">
+          <div class="column" style="height: 500px">
+            <div class="left5 guideThing col">
+              <q-card style="width: 80%; margin-top: 1rem">
+                <q-card-actions vertical>
+                  <div style="align-item-center">
+                    <div style="margin-top: 0">
+                      <q-list class="rounded-borders">
+                        <q-expansion-item
+                          label="Guide"
+                          icon="link"
+                          style="font-weight: bold; font-size: 16px"
+                        >
+                          <q-card style="padding: 0px 20px 10px 20px">
+                            <q-card-section>
+                              Lorem ipsum dolor sit amet consectetur adipisicing
+                              elit. Culpa tenetur fugit nam rerum nobis
+                              consequuntur blanditiis neque ad veritatis
+                              adipisci! Ea illo nostrum omnis debitis voluptatum
+                              magni. Quos, voluptatum aut!
+                            </q-card-section>
+                          </q-card>
+                        </q-expansion-item>
+                      </q-list>
+                    </div>
+                  </div>
+                </q-card-actions>
+              </q-card>
+            </div>
+            <div class="col-2"></div>
+            <div class="col">
+              <div class="row">
+                <!-- <div class="exampleBtn1 left5 rounded-borders">
+                  <div class="exampleBtnText row items-center justify-center" style="height: 60px">
+                  ตัวอย่างที่ 1/Example 1
+                  </div>
+                </div> -->
+                <q-btn
+                  class="exampleBtnText exampleBtn1 left5 text-black"
+                  color="white"
+                  label="ตัวอย่างที่1/Example1"
+                  @click="toolbar=true"
+                />
+                <q-dialog v-model="toolbar">
+                  <q-card>
+                    <q-toolbar>
+                      <q-avatar>
+                        <img
+                          src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
+                        />
+                      </q-avatar>
 
+                      <q-toolbar-title
+                        ><span class="text-weight-bold">Quasar</span>
+                        Framework</q-toolbar-title
+                      >
+
+                      <q-btn flat round dense icon="close" v-close-popup />
+                    </q-toolbar>
+
+                    <q-card-section>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Rerum repellendus sit voluptate voluptas eveniet porro.
+                      Rerum blanditiis perferendis totam, ea at omnis vel
+                      numquam exercitationem aut, natus minima, porro labore.
+                    </q-card-section>
+                  </q-card>
+                </q-dialog>
+                <q-btn
+                  class="exampleBtnText exampleBtn2 left3"
+                  color="black"
+                  label="ตัวอย่างที่2/Example2"
+                  @click="toolbar = true"
+                />
+              </div>
+              <div class="row" style="margin-top: 1rem">
+                <div class="col">
+                  <q-card class="left5" style="width: 76%">
+                    <q-card-actions vertical>
+                      <div class="q-pa-xs">
+                        <vue-tags-input
+                          v-model="taskSuccess.description"
+                          :tags="tags"
+                          @tags-changed="(newTags) => (tags = newTags)"
+                        />
+                      </div>
+                    </q-card-actions>
+                  </q-card>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 1rem">
+                <q-btn
+                  class="exampleBtnText skipBtn left5 text-white"
+                  label="ข้าม/Skip"
+                  @onclick="onSkip()"
+                />
+                <q-btn
+                  class="exampleBtnText exampleBtn1 left3"
+                  color="red-7"
+                  label="บันทึก/Save"
+                  @onclick="onSave()"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -133,6 +158,7 @@ export default {
   data() {
     return {
       tags: [],
+      toolbar: false,
       config: {
         // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
         // url: "http://localhost:8080",

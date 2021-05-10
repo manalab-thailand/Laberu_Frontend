@@ -74,15 +74,15 @@ export default {
   },
   methods: {},
   updated() {
-    // if (
-    //   this.$router.currentRoute.fullPath == "/" ||
-    //   this.$router.currentRoute.fullPath == "/register" ||
-    //   this.$router.currentRoute.fullPath == "/admin"
-    // ) {
-    //   this.currentPage = null;
-    // } else {
-    //   this.currentPage = this.$router.currentRoute.fullPath;
-    // }
+    if (
+      this.$router.currentRoute.fullPath == "/" ||
+      this.$router.currentRoute.fullPath == "/register" ||
+      this.$router.currentRoute.fullPath == "/admin"
+    ) {
+      this.currentPage = null;
+    } else {
+      this.currentPage = this.$router.currentRoute.fullPath;
+    }
   },
 };
 </script>
