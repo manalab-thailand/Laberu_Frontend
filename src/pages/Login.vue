@@ -6,9 +6,9 @@
         <div class="col-lg-1"></div>
         <div class="col-lg-4">
           <q-card-section align="center" style="left: 3rem">
-            <div class="text-h4">
+            <div class="text-h4 text-white">
               Image Labelling
-              <div class="text-subtitle2">by LABERU</div>
+              <div class="text-subtitle2 text-white">by LABERU</div>
             </div>
             <div class="q-pa-md">
               <imageDisplay></imageDisplay>
