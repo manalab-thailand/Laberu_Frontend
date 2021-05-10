@@ -18,7 +18,7 @@
     </div>
     <div v-else>
       <q-header elevated class="bg-cyan">
-        <q-toolbar class="text-black bg-white">
+        <q-toolbar class="text-black bg-white shadow-2">
           <div class="row justify-between" style="width: 100%">
             <div class="row items-center">
               <q-avatar>
@@ -27,27 +27,26 @@
               <q-toolbar-title class="text-h5 text-weight-bold">
                 Laberu.ai
               </q-toolbar-title>
-              <q-separator vertical size="2px" color="black" />
+              <q-separator dark vertical inset  color="grey" />
               <q-btn
                 color="white"
                 text-color="black"
                 label="หน้าหลัก"
                 class="text-weight-bold q-mx-sm"
               />
-              <q-separator vertical size="2px" color="black" />
+              <q-separator dark vertical inset color="grey" />
               <q-btn
                 color="white"
                 text-color="black"
                 label="โปรไฟล์"
                 class="text-weight-bold q-mx-sm"
               />
-              <q-separator vertical size="2px" color="black" />
             </div>
             <div class="row items-center">
-              <div class="text-h6 text-weight-bold q-mr-md">
+              <div class="text-h7 text-weight-bold q-mr-md">
                 Laberu.dev@gmail.com
               </div>
-              <q-separator vertical size="2px" color="black" />
+              <q-separator dark vertical inset color="grey" />
               <q-btn
                 color="white"
                 text-color="black"
