@@ -2,188 +2,187 @@
   <q-layout view="lHh Lpr lFf">
     <backgroundDisplay></backgroundDisplay>
     <div class="context">
-      <div class="row">
-        <div class="col-6">
-          <div class="imgArea left15">
-            <div class="container">
+      <div class="big-bg">
+        <div class="row items-center">
+          <div class="col-6" style="padding: 1rem 0">
+            <div class="imgArea float-right">
               <div class="container-inner">
-                <img :src="this.image.url" />
+                <!-- <img
+                  :src="this.image.url"
+                  style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px"
+                /> -->
+                <img
+                  src="../images/image_4.jpg"
+                  style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px"
+                />
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-6">
-          <div class="column" style="height: 500px">
-            <div class="left5 guideThing col">
-              <q-card style="width: 80%; margin-top: 1rem">
-                <q-card-actions vertical>
-                  <div style="align-item-center">
-                    <div style="margin-top: 0">
-                      <q-list class="rounded-borders">
-                        <q-expansion-item
-                          label="Guide"
-                          icon="link"
-                          style="font-weight: bold; font-size: 16px"
-                        >
-                          <q-card style="padding: 0px 20px 10px 20px">
-                            <q-card-section>
-                              {{ this.dataImage.description_english }}
-                            </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </q-list>
+          <div class="col-6 row justify-center" style="padding: 1rem 0">
+            <div style="width: 90%">
+              <div class="bg-color-input">
+                <div class="col">
+                  <q-card>
+                    <q-card-actions vertical>
+                      <div style="align-item-center">
+                        <div style="margin-top: 0">
+                          <q-list class="rounded-borders">
+                            <q-expansion-item
+                              default-opened
+                              label="Guide"
+                              icon="link"
+                              style="font-weight: bold; font-size: 16px"
+                            >
+                              <q-card style="padding: 0px 20px 10px 20px">
+                                <q-card-section>
+                                  {{ this.dataImage.description_english }}
+                                </q-card-section>
+                              </q-card>
+                            </q-expansion-item>
+                          </q-list>
+                        </div>
+                      </div>
+                    </q-card-actions>
+                  </q-card>
+                </div>
+                <div class="col" style="margin-top: 6rem">
+                  <div class="row">
+                    <div class="col-6">
+                      <q-dialog v-model="tutorDialog">
+                        <q-card style="width: 75rem; max-width: 80vw">
+                          <q-card-section class="row q-pa-none">
+                            <div class="col"></div>
+                            <div class="col text-center">
+                              <div class="text-h6 q-mt-sm">คู่มือการใช้งาน</div>
+                            </div>
+                            <div class="col">
+                              <q-btn
+                                class="q-pa-xs float-right"
+                                icon="close"
+                                flat
+                                round
+                                dense
+                                v-close-popup
+                              />
+                            </div>
+                          </q-card-section>
+                          <q-card-section class="row justify-center">
+                            <q-img
+                              src="../images/tutorImage.png"
+                              width="100%"
+                              height="100%"
+                            />
+                          </q-card-section>
+                        </q-card>
+                      </q-dialog>
+                      <div class="row justify-center q-mr-sm">
+                        <q-btn
+                          class="exampleBtnText exampleBtn1 text-black"
+                          color="white"
+                          label="คู่มือการใช้งาน/Tutorial"
+                          @click="tutorDialog = true"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <q-dialog v-model="expDialog">
+                        <q-card style="width: 800px; max-width: 80vw">
+                          <q-card-section class="row q-pa-none">
+                            <div class="col"></div>
+                            <div class="col text-center">
+                              <div class="text-h6 q-mt-sm">ตัวอย่างที่ 1</div>
+                            </div>
+                            <div class="col">
+                              <q-btn
+                                class="q-pa-xs float-right"
+                                icon="close"
+                                flat
+                                round
+                                dense
+                                v-close-popup
+                              />
+                            </div>
+                          </q-card-section>
+                          <q-card-section class="row justify-center q-pa-none">
+                            <q-img
+                              src="../images/example_img.jpg"
+                              width="50%"
+                              height="50%"
+                            />
+                          </q-card-section>
+                          <q-card-section class="q-pa-none">
+                            <div class="col-12">
+                              <div class="row">
+                                <div class="col-6" style="margin-bottom: 1rem">
+                                  <div class="text-header">
+                                    ตัวอย่างการกรอกข้อมูลที่ถูก
+                                  </div>
+                                  <div class="text-example-correct">
+                                    1. คน 4คน ยืนอยู่ รอบโต๊ะ ถือแก้วไวน์
+                                  </div>
+                                  <div class="text-example-correct">
+                                    2. กลุ่มคน กำลัง ถือแก้ว ชิมไวน์ อยู่รอบโต๊ะ
+                                    ที่ทำจากไม้
+                                  </div>
+                                  <div class="text-example-correct">
+                                    3. ชายแก่ กำลัง รินไวน์ ให้ผู้ชาย 2คน กับ
+                                    ผู้หญิง 1คน
+                                  </div>
+                                  <div class="text-example-correct">
+                                    4. ชายแก่ กำลัง รินไวน์ ให้กับ ผู้ชาย 2คน
+                                    คนหนึ่งใส่แว่น คนที่สอง ใส่แว่น และใส่หมวก
+                                  </div>
+                                </div>
+                                <div class="col-6">
+                                  <div class="text-header">
+                                    ตัวอย่างการกรอกข้อมูลที่ผิด
+                                  </div>
+                                  <div class="text-example-incorrect">
+                                    ( ไม่มีการเว้นวรรคคำ )
+                                  </div>
+                                  <div class="text-example-correct">
+                                    1. คน4คนยืนอยู่รอบโต๊ะถือแก้วไวน์
+                                  </div>
+                                  <div class="text-example-incorrect">
+                                    ( ประโยคไม่มีความสัมพันธ์กัน / ไม่เป็นประโยค
+                                    )
+                                  </div>
+                                  <div class="text-example-correct">
+                                    2. โต๊ะวงกลม คนแก่ คนหลายคน
+                                    ด้านหลังเป็นภูเขา สีเขียว
+                                  </div>
+                                  <div class="text-example-incorrect">
+                                    ( เขียนคำผิด / สะกดคำไม่ถูกต้อง )
+                                  </div>
+                                  <div class="text-example-correct">
+                                    3. ชายแก้ กล้ำลัง รีไว ให้ผู้ชั่ย ซองคน กลับ
+                                    ผู้หญิง 1คน
+                                  </div>
+                                  <div class="text-example-incorrect">
+                                    ( ประโยคสั้นไป )
+                                  </div>
+                                  <div class="text-example-correct">
+                                    4. คน กำ ลัง ริน ไวน์
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </q-card-section>
+                        </q-card>
+                      </q-dialog>
+                      <div class="row justify-center q-ml-sm">
+                        <q-btn
+                          class="exampleBtnText exampleBtn2"
+                          color="black"
+                          label="ตัวอย่าง/Example"
+                          @click="expDialog = true"
+                        />
+                      </div>
                     </div>
                   </div>
-                </q-card-actions>
-              </q-card>
-            </div>
-            <div class="col-1"></div>
-            <div class="col">
-              <div class="row">
-                <q-dialog v-model="tutorDialog">
-                  <q-card style="width: 75rem; max-width: 80vw">
-                    <q-card-section class="row q-pa-none">
-                      <div class="col"></div>
-                      <div class="col text-center">
-                        <div class="text-h6 q-mt-sm">คู่มือการใช้งาน</div>
-                      </div>
-                      <div class="col">
-                        <q-btn
-                          class="q-pa-xs float-right"
-                          icon="close"
-                          flat
-                          round
-                          dense
-                          v-close-popup
-                        />
-                      </div>
-                    </q-card-section>
-                    <q-card-section class="row justify-center">
-                      <q-img
-                        src="../images/tutorImage.png"
-                        width="100%"
-                        height="100%"
-                      />
-                    </q-card-section>
-                  </q-card>
-                </q-dialog>
-                <q-btn
-                  class="exampleBtnText exampleBtn1 left5 text-black"
-                  color="white"
-                  label="คู่มือการใช้งาน/Tutorial"
-                  @click="tutorDialog = true"
-                />
-                <q-dialog v-model="expDialog">
-                  <q-card style="width: 50rem; max-width: 80vw">
-                    <q-card-section class="row q-pa-none">
-                      <div class="col"></div>
-                      <div class="col text-center">
-                        <div class="text-h6 q-mt-sm">ตัวอย่างที่ 1</div>
-                      </div>
-                      <div class="col">
-                        <q-btn
-                          class="q-pa-xs float-right"
-                          icon="close"
-                          flat
-                          round
-                          dense
-                          v-close-popup
-                        />
-                      </div>
-                    </q-card-section>
-                    <q-card-section class="row justify-center">
-                      <q-img
-                        src="../images/example_img.jpg"
-                        width="75%"
-                        height="75%"
-                      />
-                    </q-card-section>
-                    <q-card-section class="q-pb-none q-pt-none">
-                      <div class="row">
-                        <div class="col">
-                          <div class="text-h6">ตัวอย่างที่ถูกต้อง</div>
-                        </div>
-                        <div class="col">
-                          <div class="text-h6">ตัวอย่างที่ผิด</div>
-                        </div>
-                      </div>
-                    </q-card-section>
-                    <q-card-section class="q-pt-none q-pb-lg text-center">
-                      <div class="row">
-                        <div class="col">
-                          <div class="text-subtitle1">
-                            1.คน 4 คน ยืนอยู่ รอบโต๊ะ ถือแก้วไวน์
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="">( ไม่มีการเว้นวรรคคำ )</div>
-                          <div class="text-subtitle1">
-                            1. คน4คนยืนอยู่รอบโต๊ะถือแก้วไวน์
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="text-subtitle1">
-                            2.กลุ่มคน กำลัง ถือแก้ว ชิมไวน์ อยู่รอบโต๊ะ
-                            ที่ทำจากไม้
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="">
-                            ( ประโยคไม่มีความสัมพันธ์กัน / ไม่เป็นประโยค )
-                          </div>
-                          <div class="text-subtitle1">
-                            2. โต๊ะวงกลม คนแก่ คนหลายคน ด้านหลังเป็นภูเขา
-                            สีเขียว
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="text-subtitle1">
-                            3.ชายแก่ กำลัง รินไวน์ ให้ผู้ชาย 2คน กับ ผู้หญิง 1คน
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="">( เขียนคำผิด / สะกดคำไม่ถูกต้อง )</div>
-                          <div class="text-subtitle1">
-                            3. ชายแก้ กำลัง รีไว ให้ผู้ชั่ย ส๊องคน กลับ ผู้หญิง
-                            1คน
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="text-subtitle1">
-                            4.ชายแก่ กำลัง รินไวน์ ให้กับ ผู้ชาย 2คน
-                            คนหนึ่งใส่แว่น คนที่สอง ใส่แว่น และใส่หมวก
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="text-subtitle1">
-                            <div class="">
-                              ( ประโยคสั้นเกินไป / กรุณาเขียนให้เป็นประโยค )
-                            </div>
-                            <div class="text-subtitle1">
-                              4. คน กำ ลัง ดื่ม ไวน์
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </q-card-section>
-                  </q-card>
-                </q-dialog>
-                <q-btn
-                  class="exampleBtnText exampleBtn2 left3"
-                  color="black"
-                  label="ตัวอย่าง/Example"
-                  @click="expDialog = true"
-                />
-              </div>
-              <div class="row" style="margin-top: 1rem">
-                <div class="col">
-                  <q-card class="left5" style="width: 76%">
+                </div>
+                <div class="col q-mt-sm">
+                  <q-card style="width: 100%">
                     <q-card-actions vertical>
                       <div class="col-12 q-pa-xs" style="width: 100%">
                         <BootstrapVueTags
@@ -194,19 +193,29 @@
                     </q-card-actions>
                   </q-card>
                 </div>
-              </div>
-              <div class="row" style="margin-top: 1rem">
-                <q-btn
-                  class="exampleBtnText skipBtn left5 text-white"
-                  label="ข้าม/Skip"
-                  @click="onSkip()"
-                />
-                <q-btn
-                  class="exampleBtnText exampleBtn1 left3"
-                  color="red-7"
-                  label="บันทึก/Save"
-                  @click="onSave()"
-                />
+                <div class="col q-mt-sm">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="row justify-center q-mr-sm">
+                        <q-btn
+                          class="exampleBtnText skipBtn text-white"
+                          label="ข้าม/Skip"
+                          @click="onSkip()"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="row justify-center q-ml-sm">
+                        <q-btn
+                          class="exampleBtnText exampleBtn1"
+                          color="red-7"
+                          label="บันทึก/Save"
+                          @click="onSave()"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

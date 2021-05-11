@@ -52,9 +52,8 @@
                     <q-icon name="visibility" />
                   </template>
                 </q-input>
-                <div align="right" class="q-my-xl"></div>
               </q-form>
-              <div align="center">
+              <div align="center" class="q-mt-xl">
                 <q-btn
                   class="q-mt-sm loginBtn"
                   outline
@@ -63,7 +62,7 @@
                   label="ลงชื่อเข้าใช้งาน / Sign in"
                 />
               </div>
-              <div class="text-center q-pa-md q-gutter-md">
+              <div class="text-center q-pa-md q-mt-xs q-gutter-md">
                 <q-btn round color="red-8" @click="onGmail()">
                   <q-icon name="fab fa-google-plus-g" size="1.5rem" />
                 </q-btn>
