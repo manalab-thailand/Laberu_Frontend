@@ -14,6 +14,51 @@
                     color="grey-3"
                     label-color="primary"
                     outlined
+                    v-model="email"
+                    label="อีเมล / e-mail"
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) || 'Please type something',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="person" color="primary" />
+                    </template>
+                  </q-input>
+                </div>
+                <div style="margin: 0 10px"></div>
+                <div class="col">
+                  <q-input
+                    :type="isPwd ? 'password' : 'text'"
+                    filled
+                    color="grey-3"
+                    label-color="primary"
+                    outlined
+                    v-model="password"
+                    label="รหัสผ่าน / password"
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) || 'Please type something',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon
+                        :name="isPwd ? 'visibility_off' : 'visibility'"
+                        class="cursor-pointer"
+                        @click="isPwd = !isPwd"
+                        color="primary"
+                      />
+                    </template>
+                  </q-input>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <q-input
+                    filled
+                    color="grey-3"
+                    label-color="primary"
+                    outlined
                     v-model="fname"
                     label="ชื่อ / Name"
                     :rules="[
@@ -191,6 +236,9 @@ export default {
         url: "https://laberu-ptrmd2zvzq-as.a.run.app",
         // url: "http://localhost:8080",
       },
+      isPwd: true,
+      email: null,
+      password: null,
       fname: null,
       lname: null,
       birth: null,
@@ -286,8 +334,9 @@ export default {
   methods: {
     ...mapActions({
       setUserID: "user_id/setUserID",
+      setUserEmail: "user_email/setUserEmail",
     }),
-    onSubmit() {
+    async onSubmit() {
       if (this.accept !== true) {
         this.$q.notify({
           color: "red-5",
@@ -304,36 +353,52 @@ export default {
         });
 
         this.showLoading();
-        this.createAccount();
+        await this.createAccountFirebase();
       }
     },
-    async createAccount() {
+    createAccountFirebase() {
+      this.$auth
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          this.createAccount(user);
+          // ...
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // ..
+        });
+    },
+    async createAccount(user) {
       try {
         await Axios.post(`${this.config.url}/user/create`, {
           firstname: this.fname,
           lastname: this.lname,
-          email: this.user_email,
+          email: this.email,
           birth: this.birth,
           phonenumber: this.phone_number,
           career: this.career,
           province: this.province,
           location: this.location,
           status: "ีuser",
-          uid: this.user_uid,
+          uid: user.uid,
         }).then(async (response) => {
           this.onTimeout();
-          await this.getUserID();
+          await this.getUserID(user);
           this.$router.push({ name: "index" });
         });
       } catch (error) {
         console.log(error);
       }
     },
-    async getUserID() {
+    async getUserID(user) {
       try {
         const response = await this.$axios.get(
-          `${this.config.url}/user/check_login/uid=${this.user_uid}`
+          `${this.config.url}/user/check_login/uid=${user.uid}`
         );
+        this.setUserEmail({ email: user.email });
         this.setUserID({ id: response.data[0]._id });
       } catch (error) {
         console.log(error);

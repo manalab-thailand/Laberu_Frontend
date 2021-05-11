@@ -29,7 +29,7 @@
                   clearable
                   class="txtInput"
                   type="email"
-                  label="E-mail"
+                  label="อีเมล / e-mail"
                   v-model="email"
                   name="email"
                   id="email"
@@ -43,7 +43,7 @@
                   clearable
                   class="txtInput"
                   type="password"
-                  label="Password"
+                  label="รหัสผ่าน / password"
                   v-model="password"
                   name="password"
                   id="password"
@@ -52,15 +52,7 @@
                     <q-icon name="visibility" />
                   </template>
                 </q-input>
-                <div align="right" class="q-pa-sm">
-                  <q-btn
-                    flat
-                    size="10px"
-                    class="forgetPW"
-                    label="Forgot password?"
-                    style="left: 15px"
-                  />
-                </div>
+                <div align="right" class="q-my-xl"></div>
               </q-form>
               <div align="center">
                 <q-btn
@@ -68,7 +60,7 @@
                   outline
                   @click="onLogin()"
                   color="primary"
-                  label="Sign in"
+                  label="ลงชื่อเข้าใช้งาน / Sign in"
                 />
               </div>
               <div class="text-center q-pa-md q-gutter-md">
@@ -77,12 +69,13 @@
                 </q-btn>
               </div>
               <q-separator inset />
-              <div class="q-mt-sm q-gutter-sm" align="center">
+              <div class="q-gutter-sm" align="center">
                 <q-btn
                   class="createaccBtn"
                   flat
                   color="primary"
-                  label="Create an account"
+                  label="สมัครสมาชิก / Create an account"
+                  @click="createAccountPage()"
                 />
               </div>
             </q-card-section>
@@ -106,7 +99,7 @@ export default {
   data() {
     return {
       config: {
-        // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
+        url: "https://laberu-ptrmd2zvzq-as.a.run.app",
         // url: "http://localhost:8080",
       },
       email: null,
@@ -180,6 +173,9 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    createAccountPage() {
+      this.$router.push({ name: "createaccount" });
     },
   },
 };

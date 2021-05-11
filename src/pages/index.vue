@@ -6,11 +6,8 @@
         <div class="col-6">
           <div class="imgArea left15">
             <div class="container">
-              <div
-                class="container-inner"
-                style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px"
-              >
-                <img src="../images/image_3.jpg" />
+              <div class="container-inner">
+                <img :src="this.image.url" />
               </div>
             </div>
           </div>
@@ -30,11 +27,7 @@
                         >
                           <q-card style="padding: 0px 20px 10px 20px">
                             <q-card-section>
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Culpa tenetur fugit nam rerum nobis
-                              consequuntur blanditiis neque ad veritatis
-                              adipisci! Ea illo nostrum omnis debitis voluptatum
-                              magni. Quos, voluptatum aut!
+                              {{ this.dataImage.description_english }}
                             </q-card-section>
                           </q-card>
                         </q-expansion-item>
@@ -47,11 +40,6 @@
             <div class="col-1"></div>
             <div class="col">
               <div class="row">
-                <!-- <div class="exampleBtn1 left5 rounded-borders">
-                  <div class="exampleBtnText row items-center justify-center" style="height: 60px">
-                  ตัวอย่างที่ 1/Example 1
-                  </div>
-                </div> -->
                 <q-dialog v-model="tutorDialog">
                   <q-card style="width: 75rem; max-width: 80vw">
                     <q-card-section class="row q-pa-none">
@@ -71,7 +59,11 @@
                       </div>
                     </q-card-section>
                     <q-card-section class="row justify-center">
-                      <q-img src="../images/tutorImage.png" width="100%" height="100%"/>
+                      <q-img
+                        src="../images/tutorImage.png"
+                        width="100%"
+                        height="100%"
+                      />
                     </q-card-section>
                   </q-card>
                 </q-dialog>
@@ -233,7 +225,7 @@ export default {
       expDialog: false,
       tutorDialog: false,
       config: {
-        // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
+        url: "https://laberu-ptrmd2zvzq-as.a.run.app",
         // url: "http://localhost:8080",
         project_name: null,
         baseImageUrl: null,
@@ -389,11 +381,9 @@ export default {
       this.user.count = response.data;
     },
     async onSkip() {
+      this.descriptionTags = [];
       await this.initState();
     },
-    // changeMessage(event) {
-    //   this.descriptionTags = event;
-    // },
     async onSave() {
       console.log(this.descriptionTags);
       const validateTags = [];
@@ -402,20 +392,20 @@ export default {
       if (validateTags.length >= 5) {
         try {
           const desciptionTags = validateTags.join(" ");
-          // await Axios.post(`${this.config.url}/task-success/create`, {
-          //   shortcode: this.taskImage.shortcode,
-          //   description: desciptionTags,
-          //   time_start: this.taskSuccess.time_start,
-          //   time_stop: Date.now(),
-          //   accept: true,
-          //   user_id: this.user._id,
-          //   task_id: this.taskImage._id,
-          // });
-          // await this.updateStatusTask(false, 0);
-          // await this.checkConfig();
+          await Axios.post(`${this.config.url}/task-success/create`, {
+            shortcode: this.taskImage.shortcode,
+            description: desciptionTags,
+            time_start: this.taskSuccess.time_start,
+            time_stop: Date.now(),
+            accept: true,
+            user_id: this.user._id,
+            task_id: this.taskImage._id,
+          });
+          await this.updateStatusTask(false, 0);
+          await this.checkConfig();
           this.taskSuccess.description = "";
           this.descriptionTags = [];
-          // this.initState();
+          this.initState();
         } catch (error) {
           console.log(error);
         }
@@ -447,10 +437,6 @@ export default {
         }
       }
     },
-    async goProfilePage() {
-      await this.updateStatusTask(false, 0);
-      this.$router.push({ name: "profile" });
-    },
     async resetStatusTask() {
       try {
         await Axios.put(`${this.config.url}/task-image/reset_status_all`, {
@@ -461,15 +447,6 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
-    async logout() {
-      await this.updateStatusTask(false, 0);
-      this.$auth
-        .signOut()
-        .then(() => {
-          this.$router.push("/");
-        })
-        .catch((error) => {});
     },
     showLoading() {
       this.$q.loading.show({
