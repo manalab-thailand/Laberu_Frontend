@@ -44,7 +44,7 @@
                 </q-card-actions>
               </q-card>
             </div>
-            <div class="col-2"></div>
+            <div class="col-1"></div>
             <div class="col">
               <div class="row">
                 <!-- <div class="exampleBtn1 left5 rounded-borders">
@@ -52,61 +52,106 @@
                   ตัวอย่างที่ 1/Example 1
                   </div>
                 </div> -->
+                <q-dialog v-model="tutorDialog">
+                  <q-card style="width: 75rem; max-width: 80vw">
+                    <q-card-section class="row q-pa-none">
+                      <div class="col"></div>
+                      <div class="col text-center">
+                        <div class="text-h6 q-mt-sm">คู่มือการใช้งาน</div>
+                      </div>
+                      <div class="col">
+                        <q-btn
+                          class="q-pa-xs float-right"
+                          icon="close"
+                          flat
+                          round
+                          dense
+                          v-close-popup
+                        />
+                      </div>
+                    </q-card-section>
+                    <q-card-section class="row justify-center">
+                      <q-img src="../images/tutorImage.png" width="100%" height="100%"/>
+                    </q-card-section>
+                  </q-card>
+                </q-dialog>
                 <q-btn
                   class="exampleBtnText exampleBtn1 left5 text-black"
                   color="white"
-                  label="ตัวอย่างที่1/Example1"
-                  @click="toolbar = true"
+                  label="คู่มือการใช้งาน/Tutorial"
+                  @click="tutorDialog = true"
                 />
-                <q-dialog v-model="toolbar">
+                <q-dialog v-model="expDialog">
                   <q-card style="width: 45rem; max-width: 80vw">
-                    <q-card-section class="row items-center q-pa-none">
-                      <q-space />
-                      <q-btn icon="close" flat round dense v-close-popup />
-                      
+                    <q-card-section class="row q-pa-none">
+                      <div class="col"></div>
+                      <div class="col text-center">
+                        <div class="text-h6 q-mt-sm">ตัวอย่างที่ 1</div>
+                      </div>
+                      <div class="col">
+                        <q-btn
+                          class="q-pa-xs float-right"
+                          icon="close"
+                          flat
+                          round
+                          dense
+                          v-close-popup
+                        />
+                      </div>
                     </q-card-section>
                     <q-card-section class="row justify-center">
-                    <q-img src="../images/image_1.jpg" width="75%" height="75%"/>
-                    </q-card-section>
-                    <q-card-section>
-                      <div class="row no-wrap items-center">
-                        <div class="col text-h6 ellipsis">ตัวอย่างที่ 1</div>
-                      </div>
+                      <q-img
+                        src="../images/image_1.jpg"
+                        width="75%"
+                        height="75%"
+                      />
                     </q-card-section>
                     <q-card-section class="q-pb-none q-pt-none">
                       <div class="row">
-                      <div class="col">
-                        <div class="text-subtitle1">ตัวอย่างที่ถูกต้อง</div>
-                      </div>
-                      <div class="col">
-                        <div class="text-subtitle1">ตัวอย่างที่ผิด</div>
-                      </div>
+                        <div class="col">
+                          <div class="text-h6">ตัวอย่างที่ถูกต้อง</div>
+                        </div>
+                        <div class="col">
+                          <div class="text-h6">ตัวอย่างที่ผิด</div>
+                        </div>
                       </div>
                     </q-card-section>
-                    <q-card-section class="q-pt-none q-pb-lg">
+                    <q-card-section class="q-pt-none q-pb-lg text-center">
                       <div class="row">
-                      <div class="col">
-                        <div class="text-subtitle1">1.หา หมา มา กิน ข้าว ด้วย</div>
-                      </div>
-                      <div class="col">
-                        <div class="text-subtitle1">1.หา หมา มา มาให้เพื่อน กิน ด้วย</div>
-                      </div>
-                      </div>
-                      <div class="row">
-                      <div class="col">
-                        <div class="text-subtitle1">2.หา หมา มา กิน ข้าว ด้วย</div>
-                      </div>
-                      <div class="col">
-                        <div class="text-subtitle1">1.หา หมา มา มาให้เพื่อน กิน ด้วย</div>
-                      </div>
+                        <div class="col">
+                          <div class="text-subtitle1">
+                            1.รถ แลมโบกินี่ สีแดง อยู่ใน อาคาร
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="text-subtitle1">
+                            1.มีรถสีแดงอยู่ในอาคารยี่ห้อแลมโบร์
+                          </div>
+                        </div>
                       </div>
                       <div class="row">
-                      <div class="col">
-                        <div class="text-subtitle1">3.หา หมา มา กิน ข้าว ด้วย</div>
+                        <div class="col">
+                          <div class="text-subtitle1">
+                            2.รถ แลมโบกินี่ สีแดง อยู่ใน อาคาร
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="text-subtitle1">
+                            2.มีรถสีแดงอยู่ในอาคารยี่ห้อแลมโบร์
+                          </div>
+                        </div>
                       </div>
-                      <div class="col">
-                        <div class="text-subtitle1">1.หา หมา มา มาให้เพื่อน กิน ด้วย</div>
-                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="text-subtitle1">
+                            3.รถ แลมโบกินี่ สีแดง อยู่ใน อาคาร
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="text-subtitle1">
+                            3.มีรถสีแดงอยู่ในอาคารยี่ห้อแลมโบร์
+                          </div>
+                        </div>
                       </div>
                     </q-card-section>
                   </q-card>
@@ -114,8 +159,8 @@
                 <q-btn
                   class="exampleBtnText exampleBtn2 left3"
                   color="black"
-                  label="ตัวอย่างที่2/Example2"
-                  @click="toolbar = true"
+                  label="ตัวอย่าง/Example"
+                  @click="expDialog = true"
                 />
               </div>
               <div class="row" style="margin-top: 1rem">
@@ -184,8 +229,9 @@ export default {
   },
   data() {
     return {
-      descriptionTags: ["invisibleData"],
-      toolbar: false,
+      descriptionTags: [],
+      expDialog: false,
+      tutorDialog: false,
       config: {
         // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
         // url: "http://localhost:8080",
