@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Mitr:wght@400&display=swap");
 
 html,
 body {
@@ -7,29 +6,29 @@ body {
 }
 
 .body--light {
-  background-color: #393A3F;
+  background-color: #393a3f;
   height: auto;
 }
 
-.forgetPW{
+.forgetPW {
   text-decoration: underline;
   color: rgb(106, 106, 226);
 }
 
-.txtInput{
+.txtInput {
   width: 100%;
 }
 
-.hiddenIcon{
+.hiddenIcon {
   text-align: end;
   text-align: right;
 }
 
-.q-btn__wrapper:before{
-  box-shadow:none
+.q-btn__wrapper:before {
+  box-shadow: none;
 }
 
-.loginBtn{
+.loginBtn {
   display: block;
   width: 100%;
   height: 3rem;
@@ -37,19 +36,18 @@ body {
   padding: 0px 28px;
   cursor: pointer;
 }
-.hiddenIcon{
+.hiddenIcon {
   text-align: end;
   text-align: right;
 }
 
-.loginBtn{
+.loginBtn {
   display: block;
   width: 100%;
   height: 3rem;
   border: none;
   padding: 0px 28px;
   cursor: pointer;
-
 }
 
 .circles {
@@ -58,15 +56,14 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;  
+  overflow: hidden;
   margin-bottom: 0px;
   margin-top: 0px;
-
 }
 
 .circles li {
   position: absolute;
-  
+
   list-style: none;
   width: 20px;
   height: 20px;
@@ -80,7 +77,7 @@ body {
   width: 80px;
   height: 80px;
   animation-delay: 0s;
-  background:#D46AFF;
+  background: #d46aff;
 }
 
 .circles li:nth-child(2) {
@@ -89,7 +86,7 @@ body {
   height: 35px;
   animation-delay: 2s;
   animation-duration: 12s;
-  background:#D46AFF;
+  background: #d46aff;
 }
 
 .circles li:nth-child(3) {
@@ -97,7 +94,7 @@ body {
   width: 40px;
   height: 40px;
   animation-delay: 4s;
-  background:#D46AFF;
+  background: #d46aff;
 }
 
 .circles li:nth-child(4) {
@@ -106,7 +103,7 @@ body {
   height: 60px;
   animation-delay: 0s;
   animation-duration: 18s;
-  background:#D46AFF;
+  background: #d46aff;
 }
 
 .circles li:nth-child(5) {
@@ -114,7 +111,7 @@ body {
   width: 30px;
   height: 30px;
   animation-delay: 0s;
-  background:#D46AFF;
+  background: #d46aff;
 }
 
 .circles li:nth-child(6) {
@@ -122,7 +119,7 @@ body {
   width: 110px;
   height: 110px;
   animation-delay: 3s;
-  background:#D46AFF;
+  background: #d46aff;
 }
 
 .circles li:nth-child(7) {
@@ -131,7 +128,7 @@ body {
   height: 150px;
   animation-delay: 7s;
   border-radius: 20px;
-  background:#D46AFF;
+  background: #d46aff;
 }
 
 .circles li:nth-child(8) {
@@ -140,7 +137,7 @@ body {
   height: 25px;
   animation-delay: 15s;
   animation-duration: 45s;
-  background:#D46AFF;
+  background: #d46aff;
 }
 
 .circles li:nth-child(9) {
@@ -149,7 +146,7 @@ body {
   height: 50px;
   animation-delay: 2s;
   animation-duration: 35s;
-  background:#D46AFF;
+  background: #d46aff;
 }
 
 .circles li:nth-child(10) {
@@ -159,7 +156,7 @@ body {
   border-radius: 20px;
   animation-delay: 0s;
   animation-duration: 11s;
-  background:#D46AFF;
+  background: #d46aff;
 }
 
 @keyframes animate {
@@ -175,5 +172,3 @@ body {
     border-radius: 50%;
   }
 }
-
-  
