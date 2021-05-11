@@ -122,11 +122,10 @@
                 <div class="col">
                   <q-card class="left5" style="width: 76%">
                     <q-card-actions vertical>
-                      <div class="q-pa-xs">
-                        <vue-tags-input
-                          v-model="taskSuccess.description"
-                          :tags="tags"
-                          @tags-changed="(newTags) => (tags = newTags)"
+                      <div class="col-12 q-pa-xs" style="width: 100%">
+                        <BootstrapVueTags
+                          :value="descriptionTags"
+                          @changeMessage="descriptionTags = $event"
                         />
                       </div>
                     </q-card-actions>
@@ -160,7 +159,7 @@ import { mapGetters } from "vuex";
 import Axios from "axios";
 import Vue from "vue";
 import IdleVue from "idle-vue";
-import VueTagsInput from "@johmun/vue-tags-input";
+import BootstrapVueTags from "../components/form_tag";
 import backgroundDisplay from "../components/login_animation";
 
 const eventsHub = new Vue();
@@ -180,12 +179,12 @@ export default {
     }),
   },
   components: {
-    VueTagsInput,
+    BootstrapVueTags,
     backgroundDisplay,
   },
   data() {
     return {
-      tags: [],
+      descriptionTags: ["invisibleData"],
       toolbar: false,
       config: {
         // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
@@ -346,45 +345,40 @@ export default {
     async onSkip() {
       await this.initState();
     },
+    // changeMessage(event) {
+    //   this.descriptionTags = event;
+    // },
     async onSave() {
-      const newTags = [];
-      this.tags.forEach((data) => newTags.push(data.text));
-      console.log(newTags);
-      if (this.taskSuccess.description != null) {
-        if (newTags.length >= 5) {
-          try {
-            const desciptionTags = newTags.join(" ");
-            await Axios.post(`${this.config.url}/task-success/create`, {
-              shortcode: this.taskImage.shortcode,
-              description: desciptionTags,
-              time_start: this.taskSuccess.time_start,
-              time_stop: Date.now(),
-              accept: true,
-              user_id: this.user._id,
-              task_id: this.taskImage._id,
-            });
-            await this.updateStatusTask(false, 0);
-            await this.checkConfig();
-            this.taskSuccess.description = "";
-            this.tags = [];
-            this.initState();
-          } catch (error) {
-            console.log(error);
-          }
-        } else {
-          this.$q.notify({
-            color: "red-5",
-            textColor: "white",
-            icon: "warning",
-            message: "กรุณากรอกอย่างน้อย 5 คำ",
-          });
+      console.log(this.descriptionTags);
+      const validateTags = [];
+      this.descriptionTags.forEach((data) => validateTags.push(data));
+      // console.log(validateTags);
+      if (validateTags.length >= 5) {
+        try {
+          const desciptionTags = validateTags.join(" ");
+          // await Axios.post(`${this.config.url}/task-success/create`, {
+          //   shortcode: this.taskImage.shortcode,
+          //   description: desciptionTags,
+          //   time_start: this.taskSuccess.time_start,
+          //   time_stop: Date.now(),
+          //   accept: true,
+          //   user_id: this.user._id,
+          //   task_id: this.taskImage._id,
+          // });
+          // await this.updateStatusTask(false, 0);
+          // await this.checkConfig();
+          this.taskSuccess.description = "";
+          this.descriptionTags = [];
+          // this.initState();
+        } catch (error) {
+          console.log(error);
         }
       } else {
         this.$q.notify({
           color: "red-5",
           textColor: "white",
           icon: "warning",
-          message: "กรุณากรอกข้อมูลในพื้นที่ที่กำหนด",
+          message: "กรุณากรอกอย่างน้อย 5 คำ",
         });
       }
     },
