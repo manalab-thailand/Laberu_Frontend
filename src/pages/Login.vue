@@ -112,7 +112,7 @@ export default {
       setUserID: "user_id/setUserID",
       setUserUID: "user_uid/setUserUID",
     }),
-    async onLogin() {
+    onLogin() {
       this.$auth
         .signInWithEmailAndPassword(this.email, this.password)
         .then((userCredential) => {
@@ -120,7 +120,7 @@ export default {
           if (user != null) {
             this.setUserUID({ uid: user.uid });
             this.setUserEmail({ email: user.email });
-            this.authStateChange();
+            this.checkLogin(user.uid);
           }
         })
         .catch((error) => {
@@ -131,12 +131,6 @@ export default {
             message: error.message,
           });
         });
-    },
-
-    async authStateChange() {
-      this.$auth.onAuthStateChanged((user) => {
-        this.checkLogin(user.uid);
-      });
     },
 
     async onGmail() {

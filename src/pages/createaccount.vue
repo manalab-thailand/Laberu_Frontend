@@ -374,7 +374,7 @@ export default {
           career: this.career,
           province: this.province,
           location: this.location,
-          status: "ีuser",
+          status: "user",
           uid: user.uid,
         }).then(async (response) => {
           this.onTimeout();
