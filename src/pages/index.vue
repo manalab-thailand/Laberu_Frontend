@@ -59,27 +59,55 @@
                   @click="toolbar = true"
                 />
                 <q-dialog v-model="toolbar">
-                  <q-card>
-                    <q-toolbar>
-                      <q-avatar>
-                        <img
-                          src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg"
-                        />
-                      </q-avatar>
-
-                      <q-toolbar-title>
-                        <span class="text-weight-bold">Quasar</span>
-                        Framework
-                      </q-toolbar-title>
-
-                      <q-btn flat round dense icon="close" v-close-popup />
-                    </q-toolbar>
-
+                  <q-card style="width: 45rem; max-width: 80vw">
+                    <q-card-section class="row items-center q-pa-none">
+                      <q-space />
+                      <q-btn icon="close" flat round dense v-close-popup />
+                      
+                    </q-card-section>
+                    <q-card-section class="row justify-center">
+                    <q-img src="../images/image_1.jpg" width="75%" height="75%"/>
+                    </q-card-section>
                     <q-card-section>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Rerum repellendus sit voluptate voluptas eveniet porro.
-                      Rerum blanditiis perferendis totam, ea at omnis vel
-                      numquam exercitationem aut, natus minima, porro labore.
+                      <div class="row no-wrap items-center">
+                        <div class="col text-h6 ellipsis">ตัวอย่างที่ 1</div>
+                      </div>
+                    </q-card-section>
+                    <q-card-section class="q-pb-none q-pt-none">
+                      <div class="row">
+                      <div class="col">
+                        <div class="text-subtitle1">ตัวอย่างที่ถูกต้อง</div>
+                      </div>
+                      <div class="col">
+                        <div class="text-subtitle1">ตัวอย่างที่ผิด</div>
+                      </div>
+                      </div>
+                    </q-card-section>
+                    <q-card-section class="q-pt-none q-pb-lg">
+                      <div class="row">
+                      <div class="col">
+                        <div class="text-subtitle1">1.หา หมา มา กิน ข้าว ด้วย</div>
+                      </div>
+                      <div class="col">
+                        <div class="text-subtitle1">1.หา หมา มา มาให้เพื่อน กิน ด้วย</div>
+                      </div>
+                      </div>
+                      <div class="row">
+                      <div class="col">
+                        <div class="text-subtitle1">2.หา หมา มา กิน ข้าว ด้วย</div>
+                      </div>
+                      <div class="col">
+                        <div class="text-subtitle1">1.หา หมา มา มาให้เพื่อน กิน ด้วย</div>
+                      </div>
+                      </div>
+                      <div class="row">
+                      <div class="col">
+                        <div class="text-subtitle1">3.หา หมา มา กิน ข้าว ด้วย</div>
+                      </div>
+                      <div class="col">
+                        <div class="text-subtitle1">1.หา หมา มา มาให้เพื่อน กิน ด้วย</div>
+                      </div>
+                      </div>
                     </q-card-section>
                   </q-card>
                 </q-dialog>
