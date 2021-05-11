@@ -140,6 +140,7 @@ export default {
         .then((result) => {
           var user = result.user;
           if (user != null) {
+            console.log("loginemail");
             this.setUserUID({ uid: user.uid });
             this.setUserEmail({ email: user.email });
             this.checkLogin(user.uid);
@@ -151,10 +152,12 @@ export default {
         });
     },
     async checkLogin(uid) {
+      console.log("checklogin");
       try {
         const response = await this.$axios.get(
           `${this.config.url}/user/check_login/uid=${uid}`
         );
+        console.log(response.data[0].status);
         if (response.data.length == 0) {
           this.$router.push({ name: "register" });
         } else if (response.data[0].status == "user") {

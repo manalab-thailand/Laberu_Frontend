@@ -61,14 +61,6 @@
                       <div class="profileBG">{{ userData.email }}</div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col paddingCol">
-                      <div class="dataProfile">ที่อยู่/Resident</div>
-                      <div class="profileBG">
-                        {{ userData.location }}
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </q-tab-panel>
 
@@ -179,8 +171,8 @@ export default {
     };
   },
   async mounted() {
-    // await this.getUserData();
-    // await this.getUserTaskSuccess();
+    await this.getUserData();
+    await this.getUserTaskSuccess();
   },
   methods: {
     async getUserData() {

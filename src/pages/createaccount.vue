@@ -142,18 +142,21 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <q-input
+                  <q-select
                     filled
                     color="grey-3"
                     label-color="primary"
                     outlined
+                    transition-show="jump-up"
+                    transition-hide="jump-up"
                     v-model="career"
+                    :options="career_th"
                     label="อาชีพ / Career"
                     :rules="[
                       (val) => (val && val.length > 0) || 'กรุณาใส่อาชีพ',
                     ]"
                   >
-                  </q-input>
+                  </q-select>
                 </div>
                 <div style="margin: 0 10px"></div>
                 <div class="col">
@@ -170,22 +173,6 @@
                       (val) => (val && val.length > 0) || 'กรุณาใส่จังหวัด',
                     ]"
                   />
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <q-input
-                    filled
-                    color="grey-3"
-                    label-color="primary"
-                    outlined
-                    v-model="location"
-                    label="ที่อยู่ / Location"
-                    :rules="[
-                      (val) => (val && val.length > 0) || 'กรุณาใส่ที่อยู่',
-                    ]"
-                  >
-                  </q-input>
                 </div>
               </div>
               <q-toggle
@@ -239,6 +226,16 @@ export default {
       location: null,
       phone_number: null,
       accept: false,
+      career_th: [
+        "การเกษตร",
+        "การศึกษา",
+        "การแพทย์",
+        "การเงินและธุรกิจ",
+        "การท่องเที่ยว",
+        "การคมนาคม",
+        "ข้าราชการ",
+        "กฏหมาย",
+      ],
       province_th: [
         "กรุงเทพฯ",
         "กระบี่",

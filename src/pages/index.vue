@@ -74,7 +74,7 @@
                   @click="tutorDialog = true"
                 />
                 <q-dialog v-model="expDialog">
-                  <q-card style="width: 45rem; max-width: 80vw">
+                  <q-card style="width: 50rem; max-width: 80vw">
                     <q-card-section class="row q-pa-none">
                       <div class="col"></div>
                       <div class="col text-center">
@@ -93,7 +93,7 @@
                     </q-card-section>
                     <q-card-section class="row justify-center">
                       <q-img
-                        src="../images/image_1.jpg"
+                        src="../images/example_img.jpg"
                         width="75%"
                         height="75%"
                       />
@@ -112,36 +112,62 @@
                       <div class="row">
                         <div class="col">
                           <div class="text-subtitle1">
-                            1.รถ แลมโบกินี่ สีแดง อยู่ใน อาคาร
+                            1.คน 4 คน ยืนอยู่ รอบโต๊ะ ถือแก้วไวน์
                           </div>
                         </div>
                         <div class="col">
+                          <div class="">( ไม่มีการเว้นวรรคคำ )</div>
                           <div class="text-subtitle1">
-                            1.มีรถสีแดงอยู่ในอาคารยี่ห้อแลมโบร์
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="text-subtitle1">
-                            2.รถ แลมโบกินี่ สีแดง อยู่ใน อาคาร
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="text-subtitle1">
-                            2.มีรถสีแดงอยู่ในอาคารยี่ห้อแลมโบร์
+                            1. คน4คนยืนอยู่รอบโต๊ะถือแก้วไวน์
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col">
                           <div class="text-subtitle1">
-                            3.รถ แลมโบกินี่ สีแดง อยู่ใน อาคาร
+                            2.กลุ่มคน กำลัง ถือแก้ว ชิมไวน์ อยู่รอบโต๊ะ
+                            ที่ทำจากไม้
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="">
+                            ( ประโยคไม่มีความสัมพันธ์กัน / ไม่เป็นประโยค )
+                          </div>
+                          <div class="text-subtitle1">
+                            2. โต๊ะวงกลม คนแก่ คนหลายคน ด้านหลังเป็นภูเขา
+                            สีเขียว
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="text-subtitle1">
+                            3.ชายแก่ กำลัง รินไวน์ ให้ผู้ชาย 2คน กับ ผู้หญิง 1คน
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="">( เขียนคำผิด / สะกดคำไม่ถูกต้อง )</div>
+                          <div class="text-subtitle1">
+                            3. ชายแก้ กำลัง รีไว ให้ผู้ชั่ย ส๊องคน กลับ ผู้หญิง
+                            1คน
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="text-subtitle1">
+                            4.ชายแก่ กำลัง รินไวน์ ให้กับ ผู้ชาย 2คน
+                            คนหนึ่งใส่แว่น คนที่สอง ใส่แว่น และใส่หมวก
                           </div>
                         </div>
                         <div class="col">
                           <div class="text-subtitle1">
-                            3.มีรถสีแดงอยู่ในอาคารยี่ห้อแลมโบร์
+                            <div class="">
+                              ( ประโยคสั้นเกินไป / กรุณาเขียนให้เป็นประโยค )
+                            </div>
+                            <div class="text-subtitle1">
+                              4. คน กำ ลัง ดื่ม ไวน์
+                            </div>
                           </div>
                         </div>
                       </div>
