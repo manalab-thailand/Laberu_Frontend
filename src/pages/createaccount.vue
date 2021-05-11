@@ -17,8 +17,7 @@
                     v-model="email"
                     label="อีเมล / e-mail"
                     :rules="[
-                      (val) =>
-                        (val && val.length > 0) || 'Please type something',
+                      (val) => (val && val.length > 0) || 'กรุณาใส่อีเมล',
                     ]"
                   >
                     <template v-slot:append>
@@ -37,8 +36,7 @@
                     v-model="password"
                     label="รหัสผ่าน / password"
                     :rules="[
-                      (val) =>
-                        (val && val.length > 0) || 'Please type something',
+                      (val) => (val && val.length > 0) || 'กรุณาใส่รหัสผ่าน',
                     ]"
                   >
                     <template v-slot:append>
@@ -62,8 +60,7 @@
                     v-model="fname"
                     label="ชื่อ / Name"
                     :rules="[
-                      (val) =>
-                        (val && val.length > 0) || 'Please type something',
+                      (val) => (val && val.length > 0) || 'กรุณาใส่ชื่อ',
                     ]"
                   >
                     <template v-slot:append>
@@ -81,8 +78,7 @@
                     v-model="lname"
                     label="นามสกุล / Surname"
                     :rules="[
-                      (val) =>
-                        (val && val.length > 0) || 'Please type something',
+                      (val) => (val && val.length > 0) || 'กรุณาใส่นามสกุล',
                     ]"
                   >
                     <template v-slot:append>
@@ -100,8 +96,7 @@
                     v-model="birth"
                     mask="####-##-##"
                     :rules="[
-                      (val) =>
-                        (val && val.length > 0) || 'Please type something',
+                      (val) => (val && val.length == 10) || 'กรุณาใส่วันเกิด',
                     ]"
                   >
                     <template v-slot:append>
@@ -136,7 +131,7 @@
                     label="เบอร์โทรศัพท์ / Phone number"
                     :rules="[
                       (val) =>
-                        (val && val.length >= 10) || 'Please type something',
+                        (val && val.length == 10) || 'เบอร์โทรศัพท์ไม่ถูกต้อง',
                     ]"
                   >
                     <template v-slot:append>
@@ -155,8 +150,7 @@
                     v-model="career"
                     label="อาชีพ / Career"
                     :rules="[
-                      (val) =>
-                        (val && val.length > 0) || 'Please type something',
+                      (val) => (val && val.length > 0) || 'กรุณาใส่อาชีพ',
                     ]"
                   >
                   </q-input>
@@ -173,8 +167,7 @@
                     :options="province_th"
                     label="จังหวัด / Province"
                     :rules="[
-                      (val) =>
-                        (val && val.length > 0) || 'Please type something',
+                      (val) => (val && val.length > 0) || 'กรุณาใส่จังหวัด',
                     ]"
                   />
                 </div>
@@ -189,8 +182,7 @@
                     v-model="location"
                     label="ที่อยู่ / Location"
                     :rules="[
-                      (val) =>
-                        (val && val.length > 0) || 'Please type something',
+                      (val) => (val && val.length > 0) || 'กรุณาใส่ที่อยู่',
                     ]"
                   >
                   </q-input>
