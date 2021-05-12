@@ -131,7 +131,10 @@
                     label="เบอร์โทรศัพท์ / Phone number"
                     :rules="[
                       (val) =>
-                        (val && val.length == 10) || 'เบอร์โทรศัพท์ไม่ถูกต้อง',
+                        (val &&
+                          val.length == 10 &&
+                          val.match(/^[0-9]+$/) != null) ||
+                        'เบอร์โทรศัพท์ไม่ถูกต้อง',
                     ]"
                   >
                     <template v-slot:append>

@@ -7,14 +7,16 @@
           <div class="col-6" style="padding: 1rem 0">
             <div class="imgArea float-right">
               <div class="container-inner">
-                <!-- <img
+                <img
+                  class="Zoom"
                   :src="this.image.url"
                   style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px"
-                /> -->
-                <img
-                  src="../images/image_4.jpg"
-                  style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px"
                 />
+                <!-- <img
+                  class="Zoom"
+                  src="../images/image_5.jpg"
+                  style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px"
+                /> -->
               </div>
             </div>
           </div>
@@ -90,7 +92,9 @@
                           <q-card-section class="row q-pa-none">
                             <div class="col"></div>
                             <div class="col text-center">
-                              <div class="text-h6 q-mt-sm">ตัวอย่างที่ 1</div>
+                              <div class="text-h6 text-weight-bold q-mt-sm">
+                                ตัวอย่างที่ 1
+                              </div>
                             </div>
                             <div class="col">
                               <q-btn
@@ -113,6 +117,38 @@
                           <q-card-section class="q-pa-none">
                             <div class="col-12">
                               <div class="row">
+                                <div class="col-6">
+                                  <div class="text-header">
+                                    ตัวอย่างการกรอกข้อมูลที่ผิด
+                                  </div>
+                                  <div class="title-example-incorrect">
+                                    ( ประโยคไม่มีความสัมพันธ์กัน / ไม่เป็นประโยค
+                                    )
+                                  </div>
+                                  <div class="text-example-incorrect">
+                                    1. โต๊ะวงกลม คนแก่ คนหลายคน
+                                    ด้านหลังเป็นภูเขา สีเขียว
+                                  </div>
+                                  <div class="title-example-incorrect">
+                                    ( เขียนคำผิด / สะกดคำไม่ถูกต้อง )
+                                  </div>
+                                  <div class="text-example-incorrect">
+                                    2. ชายแก้ กล้ำลัง รีไว ให้ผู้ชั่ย ซองคน กลับ
+                                    ผู้หญิง 1คน
+                                  </div>
+                                  <div class="title-example-incorrect">
+                                    ( ไม่มีการเว้นวรรคคำ )
+                                  </div>
+                                  <div class="text-example-incorrect">
+                                    3. คน4คนยืนอยู่รอบโต๊ะถือแก้วไวน์
+                                  </div>
+                                  <div class="title-example-incorrect">
+                                    ( ประโยคสั้นไป )
+                                  </div>
+                                  <div class="text-example-incorrect">
+                                    4. คน กำ ลัง ริน ไวน์
+                                  </div>
+                                </div>
                                 <div class="col-6" style="margin-bottom: 1rem">
                                   <div class="text-header">
                                     ตัวอย่างการกรอกข้อมูลที่ถูก
@@ -132,37 +168,14 @@
                                     4. ชายแก่ กำลัง รินไวน์ ให้กับ ผู้ชาย 2คน
                                     คนหนึ่งใส่แว่น คนที่สอง ใส่แว่น และใส่หมวก
                                   </div>
-                                </div>
-                                <div class="col-6">
-                                  <div class="text-header">
-                                    ตัวอย่างการกรอกข้อมูลที่ผิด
-                                  </div>
-                                  <div class="text-example-incorrect">
-                                    ( ไม่มีการเว้นวรรคคำ )
-                                  </div>
-                                  <div class="text-example-correct">
-                                    1. คน4คนยืนอยู่รอบโต๊ะถือแก้วไวน์
-                                  </div>
-                                  <div class="text-example-incorrect">
-                                    ( ประโยคไม่มีความสัมพันธ์กัน / ไม่เป็นประโยค
-                                    )
-                                  </div>
-                                  <div class="text-example-correct">
-                                    2. โต๊ะวงกลม คนแก่ คนหลายคน
-                                    ด้านหลังเป็นภูเขา สีเขียว
-                                  </div>
-                                  <div class="text-example-incorrect">
-                                    ( เขียนคำผิด / สะกดคำไม่ถูกต้อง )
-                                  </div>
-                                  <div class="text-example-correct">
-                                    3. ชายแก้ กล้ำลัง รีไว ให้ผู้ชั่ย ซองคน กลับ
-                                    ผู้หญิง 1คน
-                                  </div>
-                                  <div class="text-example-incorrect">
-                                    ( ประโยคสั้นไป )
-                                  </div>
-                                  <div class="text-example-correct">
-                                    4. คน กำ ลัง ริน ไวน์
+
+                                  <div class="row" style="height: 30%">
+                                    <div class="title-waring self-end">
+                                      * พิมพ์ประโยคบรรยายรูปภาพหนึ่งประโยค
+                                      โดยประโยคต้องแยกเป็นคำอย่างน้อย 5 คำ
+                                      แต่ละคำต้องเว้นวรรคด้วยการกด Enter
+                                      ดังตัวอย่าง
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -303,9 +316,9 @@ export default {
     this.logout();
   },
   async mounted() {
-    // await this.configProject();
-    // await this.setUserData();
-    // await this.initState();
+    await this.configProject();
+    await this.setUserData();
+    await this.initState();
   },
   methods: {
     async initState() {
