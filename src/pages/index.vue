@@ -251,7 +251,7 @@ const eventsHub = new Vue();
 
 const options = {
   eventEmitter: eventsHub,
-  idleTime: 1800000,
+  idleTime: 600000,
 };
 
 Vue.use(IdleVue, options);
@@ -433,10 +433,8 @@ export default {
       await this.initState();
     },
     async onSave() {
-      console.log(this.descriptionTags);
       const validateTags = [];
       this.descriptionTags.forEach((data) => validateTags.push(data));
-      // console.log(validateTags);
       if (validateTags.length >= 5) {
         try {
           const desciptionTags = validateTags.join(" ");
