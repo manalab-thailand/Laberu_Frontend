@@ -316,9 +316,9 @@ export default {
     this.logout();
   },
   async mounted() {
-    await this.configProject();
-    await this.setUserData();
-    await this.initState();
+    // await this.configProject();
+    // await this.setUserData();
+    // await this.initState();
   },
   methods: {
     async initState() {
@@ -493,6 +493,11 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    logout() {
+      this.$auth.signOut().then(() => {
+        this.$router.push("/");
+      });
     },
     showLoading() {
       this.$q.loading.show({

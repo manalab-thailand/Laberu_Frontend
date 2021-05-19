@@ -2,6 +2,9 @@
   <div class="row">
     <div class="col bg-white rounded-borders">
       <div class="q-mr-md">
+        <div class="row justify-end q-ma-sm weight-bold">
+          total : {{ totalSuccess }} tasks
+        </div>
         <q-table
           title="User"
           style="box-shadow: none"
@@ -98,6 +101,7 @@ export default {
       filter: "",
       selected: [],
       user: [],
+      totalSuccess: null,
       columns: [
         {
           name: "email",
@@ -121,10 +125,10 @@ export default {
       images: null,
     };
   },
-  // async mounted() {
-  //   await this.configProject();
-  //   await this.getUser();
-  // },
+  async mounted() {
+    // await this.configProject();
+    // await this.getUser();
+  },
   methods: {
     async configProject() {
       try {
@@ -147,6 +151,9 @@ export default {
             const countSuccess = await Axios.get(
               `${this.config.url}/task-success/findByUser/user_id=${item._id}&accept=true`
             );
+
+            this.totalSuccess = this.totalSuccess + countSuccess.data;
+
             return { name: item.email, total: countSuccess.data, id: item._id };
           })
         );

@@ -1,29 +1,18 @@
 <template>
-  <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
+  <div
+    class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center"
+  >
     <div>
-      <div style="font-size: 30vh">
-        404
-      </div>
+      <q-img src="../images/fixproblem.png" width="60%" />
+      <div style="font-size: 10vh">ปิดปรับปรุงระบบชั่วคราว</div>
 
-      <div class="text-h2" style="opacity:.4">
-        Oops. Nothing here...
-      </div>
-
-      <q-btn
-        class="q-mt-xl"
-        color="white"
-        text-color="blue"
-        unelevated
-        to="/"
-        label="Go Home"
-        no-caps
-      />
+      <div class="text-h2" style="opacity: 0.4">ขออภัยในความไม่สะดวก</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Error404'
-}
+  name: "Error404",
+};
 </script>

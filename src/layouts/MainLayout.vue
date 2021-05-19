@@ -25,7 +25,7 @@
                 <img src="../images/icon.png" />
               </q-avatar>
               <q-toolbar-title class="text-h5 text-weight-bold">
-                Laberu.ai
+                Laberu.tech
               </q-toolbar-title>
               <q-separator dark vertical inset color="grey" />
               <q-btn
