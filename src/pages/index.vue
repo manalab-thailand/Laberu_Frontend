@@ -1,16 +1,21 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <backgroundDisplay></backgroundDisplay>
-    <div class="context">
+    <div class="context" style="padding:20px;background-color:#fff">
       <div class="row">
+        
         <div class="col-6">
           <div class="imgArea left15">
             <div class="container">
-              <div
-                class="container-inner"
-                style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px"
-              >
-                <img src="../images/image_3.jpg" />
+              <div class="container-inner">
+                <img
+                  src="../images/image_3.jpg"
+                  style="
+                    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                    margin-top: 1rem;
+                    margin-top: 1rem;
+                  "
+                />
               </div>
             </div>
           </div>
@@ -47,11 +52,6 @@
             <div class="col-1"></div>
             <div class="col">
               <div class="row">
-                <!-- <div class="exampleBtn1 left5 rounded-borders">
-                  <div class="exampleBtnText row items-center justify-center" style="height: 60px">
-                  ตัวอย่างที่ 1/Example 1
-                  </div>
-                </div> -->
                 <q-dialog v-model="tutorDialog">
                   <q-card style="width: 75rem; max-width: 80vw">
                     <q-card-section class="row q-pa-none">
@@ -71,7 +71,11 @@
                       </div>
                     </q-card-section>
                     <q-card-section class="row justify-center">
-                      <q-img src="../images/tutorImage.png" width="100%" height="100%"/>
+                      <q-img
+                        src="../images/tutorImage.png"
+                        width="100%"
+                        height="100%"
+                      />
                     </q-card-section>
                   </q-card>
                 </q-dialog>
@@ -194,6 +198,7 @@
           </div>
         </div>
       </div>
+    
     </div>
   </q-layout>
 </template>
