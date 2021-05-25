@@ -121,10 +121,10 @@ export default {
       images: null,
     };
   },
-  // async mounted() {
-  //   await this.configProject();
-  //   await this.getUser();
-  // },
+  async mounted() {
+    await this.configProject();
+    await this.getUser();
+  },
   methods: {
     async configProject() {
       try {

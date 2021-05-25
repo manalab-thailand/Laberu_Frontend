@@ -251,7 +251,7 @@ const eventsHub = new Vue();
 
 const options = {
   eventEmitter: eventsHub,
-  idleTime: 600000,
+  idleTime: 900000,
 };
 
 Vue.use(IdleVue, options);
@@ -468,7 +468,7 @@ export default {
       const countSuccess = await Axios.get(
         `${this.config.url}/task-success/findCountByShortcode/shortcode=${this.taskImage.shortcode}`
       );
-      if (countSuccess.data == Number(this.config.labelingCount)) {
+      if (countSuccess.data >= Number(this.config.labelingCount)) {
         try {
           await Axios.put(
             `${this.config.url}/task-image/update_process/_id=${this.taskImage._id}`,

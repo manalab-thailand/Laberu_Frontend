@@ -38,7 +38,11 @@
                 <q-icon name="fas fa-image" />
               </q-item-section>
               <q-item-section>{{ image.shortcode }}</q-item-section>
-              <q-item-section avatar side v-if="image.result.length == 5">
+              <q-item-section
+                avatar
+                side
+                v-if="image.result.length >= config.labelingCount"
+              >
                 <q-icon name="fas fa-check-circle" color="blue" />
               </q-item-section>
             </q-item>
@@ -118,10 +122,10 @@ export default {
       },
     };
   },
-  // async mounted() {
-  //   await this.configProject();
-  //   await this.getTaskImage();
-  // },
+  async mounted() {
+    await this.configProject();
+    await this.getTaskImage();
+  },
   methods: {
     async configProject() {
       try {
