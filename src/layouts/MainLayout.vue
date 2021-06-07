@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hhh lpR fFf">
     <div v-if="currentPage == null">
-      <q-header elevated class="bg-cyan">
+      <q-header elevated class="bg-cyan" style="position: fixed">
         <q-toolbar class="text-black bg-white">
           <div class="row justify-between" style="width: 100%">
             <div class="row items-center">
@@ -17,7 +17,7 @@
       </q-header>
     </div>
     <div v-else>
-      <q-header elevated class="bg-cyan">
+      <q-header elevated class="bg-cyan" style="position: fixed">
         <q-toolbar class="text-black bg-white shadow-2">
           <div class="row justify-between" style="width: 100%">
             <div class="row items-center">
@@ -25,7 +25,7 @@
                 <img src="../images/icon.png" />
               </q-avatar>
               <q-toolbar-title class="text-h5 text-weight-bold">
-                Laberu.ai
+                Laberu.tech
               </q-toolbar-title>
               <q-separator dark vertical inset color="grey" />
               <q-btn
