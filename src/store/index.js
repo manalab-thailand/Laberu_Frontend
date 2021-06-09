@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // import example from './module-example'
-import user_id from './data/user_id';
-import user_email from './data/user_email';
-import user_uid from './data/user_uid';
+import db_config from './data/db_config';
+import project_config from './data/project_config';
+import user_config from './data/user_config';
 
 Vue.use(Vuex)
 
@@ -21,9 +21,9 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       // example
-      user_id,
-      user_email,
-      user_uid,
+      db_config,
+      project_config,
+      user_config,
     },
 
     // enable strict mode (adds overhead!)

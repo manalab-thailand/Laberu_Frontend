@@ -109,6 +109,7 @@
 <script>
 import Box from "../components/Box.vue";
 import backgroundDisplay from "../components/login_animation";
+import { mapGetters } from "vuex";
 import { pick } from "lodash";
 
 const getCoursorLeft = (e) => {
@@ -121,6 +122,12 @@ const getCoursorTop = (e) => {
 
 export default {
   name: "app",
+  computed: {
+    ...mapGetters({
+      databaseUrl: "db_config/databaseUrl",
+      projectConfig: "project_config/projectConfig",
+    }),
+  },
   components: { Box, backgroundDisplay },
   data: function () {
     return {
@@ -156,6 +163,10 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    console.log(this.projectConfig);
+    console.log(this.databaseUrl);
   },
   methods: {
     startDrawingBox(e) {

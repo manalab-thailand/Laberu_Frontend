@@ -89,27 +89,26 @@
 <script>
 import backgroundDisplay from "../components/login_animation";
 import imageDisplay from "../components/login_image";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters({
+      databaseUrl: "db_config/databaseUrl",
+    }),
+  },
   components: {
     backgroundDisplay,
     imageDisplay,
   },
   data() {
     return {
-      config: {
-        url: "https://laberu-ptrmd2zvzq-as.a.run.app",
-        // url: "http://localhost:8080",
-      },
       email: null,
       password: null,
     };
   },
   methods: {
     ...mapActions({
-      setUserEmail: "user_email/setUserEmail",
-      setUserID: "user_id/setUserID",
-      setUserUID: "user_uid/setUserUID",
+      setUserConfig: "user_config/setUserConfig",
     }),
     onLogin() {
       this.$auth
@@ -117,8 +116,6 @@ export default {
         .then((userCredential) => {
           var user = userCredential.user;
           if (user != null) {
-            this.setUserUID({ uid: user.uid });
-            this.setUserEmail({ email: user.email });
             this.checkLogin(user.uid);
           }
         })
@@ -139,8 +136,6 @@ export default {
         .then((result) => {
           var user = result.user;
           if (user != null) {
-            this.setUserUID({ uid: user.uid });
-            this.setUserEmail({ email: user.email });
             this.checkLogin(user.uid);
           }
         })
@@ -151,17 +146,36 @@ export default {
     },
     async checkLogin(uid) {
       try {
-        const response = await this.$axios.get(
-          `${this.config.url}/user/check_login/uid=${uid}`
+        const user = await this.$axios.get(
+          `${this.databaseUrl}/user-laberu/checkuserActive`,
+          {
+            params: {
+              uid,
+            },
+          }
         );
-        if (response.data.length == 0) {
-          this.$router.push({ name: "register" });
-        } else if (response.data[0].status == "user") {
-          this.setUserID({ id: response.data[0]._id });
-          this.$router.push({ name: "index" });
-        } else if (response.data[0].status == "admin") {
-          this.setUserID({ id: response.data[0]._id });
-          this.$router.push({ name: "admin" });
+
+        if (!user) {
+          this.$$router.push({ name: "register" });
+        } else {
+          this.setUserConfig({
+            firstname: user.data.firstname,
+            lastname: user.data.lastname,
+            birth: user.data.birth,
+            email: user.data.email,
+            phonenumber: user.data.phonenumber,
+            career: user.data.career,
+            location: user.data.location,
+            province: user.data.province,
+            status: user.data.status,
+            uid: user.data.uid,
+          });
+
+          if (user.data.status == "user") {
+            this.$router.push({ name: "home" });
+          } else {
+            this.$router.push({ name: "admin" });
+          }
         }
       } catch (error) {
         console.log(error);

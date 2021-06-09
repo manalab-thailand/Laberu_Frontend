@@ -13,7 +13,11 @@ const routes = [
     {
         path: '/', component: () => import('layouts/MainLayout.vue'),
         children: [
-            { path: '/', name: "login", component: () => import('pages/labelling.vue'), meta: { authRequired: false } },
+            { path: '/', name: "login", component: () => import('pages/annotation.vue'), meta: { authRequired: false } },
+            { path: '/home', name: "home", component: () => import('pages/Home.vue'), meta: { authRequired: false } },
+            { path: '/annotation', name: "annotation", component: () => import('pages/annotation.vue'), meta: { authRequired: false } },
+            { path: '/label', name: "label", component: () => import('pages/Labelling.vue'), meta: { authRequired: false } },
+            { path: '/class', name: "class", component: () => import('pages/class.vue'), meta: { authRequired: false } },
         ],
     },
     {

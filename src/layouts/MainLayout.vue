@@ -33,7 +33,7 @@
                 text-color="black"
                 label="หน้าหลัก"
                 class="text-weight-bold q-mx-sm"
-                @click="linkPage('index')"
+                @click="linkPage('home')"
               />
               <q-separator dark vertical inset color="grey" />
               <q-btn

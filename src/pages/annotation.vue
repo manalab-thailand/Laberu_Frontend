@@ -259,8 +259,9 @@ Vue.use(IdleVue, options);
 export default {
   computed: {
     ...mapGetters({
-      user_email: "user_email/user_email",
-      user_id: "user_id/user_id",
+      databaseUrl: "db_config/databaseUrl",
+      getUserConfig: "user_config/getUserConfig",
+      projectConfig: "project_config/projectConfig",
     }),
   },
   components: {
@@ -316,56 +317,47 @@ export default {
     this.logout();
   },
   async mounted() {
-    await this.configProject();
-    await this.setUserData();
     await this.initState();
   },
   methods: {
     async initState() {
       this.showLoading();
-      if (this.user_id != null && this.user_id != "") {
-        if (await this.checkDone()) {
-          if (await this.getImageByUser()) {
-            await this.getUserTaskSuccess();
-            await this.updateStatusTask(true, Date.now());
-            await this.setImageData();
-            this.onTimeout();
-          } else {
-            this.onTimeout();
-            this.showMessage();
-          }
+      if (await this.checkDone()) {
+        if (await this.getImageByUser()) {
+          // await this.getUserTaskSuccess();
+          // await this.updateStatusTask(true, Date.now());
+          // await this.setImageData();
+          // this.onTimeout();
         } else {
           this.onTimeout();
           this.showMessage();
         }
       } else {
         this.onTimeout();
-        this.$router.push("/");
+        this.showMessage();
       }
-    },
-    async configProject() {
-      const configProject = await Axios.get(`${this.config.url}/project`);
-
-      this.config.project_name = configProject.data[0].project_name;
-      this.config.baseImageUrl = configProject.data[0].baseImageUrl;
-      this.config.labelingCount = configProject.data[0].labelingCount;
-      this.config.labelType = configProject.data[0].labelType;
-      this.customerID = configProject.data[0].customerID;
-    },
-    async setUserData() {
-      this.user.name = this.user_login;
-      this.user._id = this.user_id;
     },
     async checkDone() {
       try {
-        const responseImage = await Axios.get(
-          `${this.config.url}/image-data/getCountImage`
+        const countImageData = await Axios.get(
+          `${this.databaseUrl}/imagedata/findCountByProjectId`,
+          {
+            params: {
+              project_id: this.projectConfig._id,
+            },
+          }
         );
-        const responseTaskImage = await Axios.get(
-          `${this.config.url}/task-image/getCountTaskSuccess`
+        const countTaskImage = await Axios.get(
+          `${this.databaseUrl}/taskimage/findCountImage`,
+          {
+            params: {
+              type: "annotation",
+              project_id: this.projectConfig._id,
+            },
+          }
         );
-        if (responseTaskImage.data < responseImage.data) {
-          await this.resetStatusTask();
+        if ((countTaskImage.data = countImageData.data)) {
+          // await this.resetStatusTask();
           return true;
         } else {
           return false;
@@ -377,7 +369,7 @@ export default {
     async getImageByUser() {
       try {
         const response = await Axios.get(
-          `${this.config.url}/task-image/findImage/user_id=${this.user._id}`
+          `${this.databaseUrl}/task-image/findImage/user_id=${this.user._id}`
         );
 
         if (response.data[0] != null) {
