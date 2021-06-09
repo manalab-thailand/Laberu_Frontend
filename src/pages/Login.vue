@@ -74,7 +74,7 @@
                   flat
                   color="primary"
                   label="สมัครสมาชิก / Create an account"
-                  @click="createAccountPage()"
+                  @click="$router.push({ name: 'createaccount' })"
                 />
               </div>
             </q-card-section>
@@ -109,6 +109,7 @@ export default {
   methods: {
     ...mapActions({
       setUserConfig: "user_config/setUserConfig",
+      setUserRegister: "user_config/setUserRegister",
     }),
     onLogin() {
       this.$auth
@@ -136,6 +137,7 @@ export default {
         .then((result) => {
           var user = result.user;
           if (user != null) {
+            this.setUserRegister({ uid: user.uid, email: user.email });
             this.checkLogin(user.uid);
           }
         })
@@ -155,10 +157,11 @@ export default {
           }
         );
 
-        if (!user) {
-          this.$$router.push({ name: "register" });
+        if (!user.data) {
+          this.$router.push({ name: "register" });
         } else {
           this.setUserConfig({
+            _id: user.data._id,
             firstname: user.data.firstname,
             lastname: user.data.lastname,
             birth: user.data.birth,
@@ -180,9 +183,6 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
-    createAccountPage() {
-      this.$router.push({ name: "createaccount" });
     },
   },
 };

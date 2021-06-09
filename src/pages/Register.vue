@@ -165,16 +165,12 @@ import Axios from "app/node_modules/axios";
 export default {
   computed: {
     ...mapGetters({
-      user_uid: "user_uid/user_uid",
-      user_email: "user_email/user_email",
+      databaseUrl: "db_config/databaseUrl",
+      getUserRegister: "user_config/getUserRegister",
     }),
   },
   data() {
     return {
-      config: {
-        url: "https://laberu-ptrmd2zvzq-as.a.run.app",
-        // url: "http://localhost:8080",
-      },
       fname: null,
       lname: null,
       birth: null,
@@ -279,7 +275,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      setUserID: "user_id/setUserID",
+      setUserConfig: "user_config/setUserConfig",
     }),
     onSubmit() {
       if (this.accept !== true) {
@@ -303,21 +299,21 @@ export default {
     },
     async createAccount() {
       try {
-        await Axios.post(`${this.config.url}/user/create`, {
+        await Axios.post(`${this.databaseUrl}/user-laberu/create`, {
           firstname: this.fname,
           lastname: this.lname,
-          email: this.user_email,
+          email: this.getUserRegister.email,
           birth: this.birth,
           phonenumber: this.phone_number,
           career: this.career,
           province: this.province,
           location: this.location,
           status: "user",
-          uid: this.user_uid,
+          uid: this.getUserRegister.uid,
         }).then(async (response) => {
           this.onTimeout();
           await this.getUserID();
-          this.$router.push({ name: "index" });
+          this.$router.push({ name: "home" });
         });
       } catch (error) {
         console.log(error);
@@ -325,10 +321,28 @@ export default {
     },
     async getUserID() {
       try {
-        const response = await this.$axios.get(
-          `${this.config.url}/user/check_login/uid=${this.user_uid}`
+        const user = await this.$axios.get(
+          `${this.databaseUrl}/user-laberu/checkuserActive`,
+          {
+            params: {
+              uid: this.getUserUid,
+            },
+          }
         );
-        this.setUserID({ id: response.data[0]._id });
+
+        this.setUserConfig({
+          _id: user._id,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          birth: user.birth,
+          email: user.email,
+          phonenumber: user.phonenumber,
+          career: user.career,
+          location: user.location,
+          province: user.province,
+          status: user.status,
+          uid: user.uid,
+        });
       } catch (error) {
         console.log(error);
       }

@@ -1,4 +1,5 @@
 const state = {
+    _id: '',
     firstname: '',
     lastname: '',
     birth: '',
@@ -14,6 +15,7 @@ const state = {
 const getters = {
     getUserConfig: (state, getters, rootState) => {
         return {
+            _id: state._id,
             firstname: state.firstname,
             lastname: state.lastname,
             birth: state.birth,
@@ -25,17 +27,27 @@ const getters = {
             status: state.status,
             uid: state.uid,
         };
+    },
+    getUserRegister: (state) => {
+        return {
+            uid: state.uid,
+            email: state.email
+        }
     }
 }
 
 const actions = {
     setUserConfig: ({ commit, state }, payload) => {
         commit('SET_USER', payload)
+    },
+    setUserRegister: ({ commit, state }, payload) => {
+        commit('SET_REGISTER', payload)
     }
 }
 
 const mutations = {
     SET_USER(state, payload) {
+        state._id = payload._id
         state.firstname = payload.firstname
         state.lastname = payload.lastname
         state.birth = payload.birth
@@ -45,6 +57,10 @@ const mutations = {
         state.location = payload.location
         state.province = payload.province
         state.status = payload.status
+        state.uid = payload.uid
+    },
+    SET_REGISTER(state, payload) {
+        state.email = payload.email
         state.uid = payload.uid
     }
 }

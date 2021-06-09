@@ -19,10 +19,17 @@
 <script>
 import backgroundDisplay from "../components/login_animation";
 import listproject from "../components/home/list-project.vue";
+import Axios from "axios";
 export default {
   components: {
     backgroundDisplay,
     listproject,
+  },
+  mounted() {},
+  methods: {
+    async insertMany() {
+      const response = await Axios.get("");
+    },
   },
 };
 </script>

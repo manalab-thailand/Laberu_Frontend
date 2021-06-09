@@ -131,6 +131,34 @@ export default {
   components: { Box, backgroundDisplay },
   data: function () {
     return {
+      user: {
+        _id: null,
+        name: null,
+        count: null,
+      },
+      image: {
+        url: null,
+      },
+      dataImage: {
+        _id: null,
+        shortcode: null,
+        description_english: null,
+      },
+      taskImage: {
+        _id: null,
+        shortcode: null,
+        status: null,
+        process: null,
+      },
+      taskSuccess: {
+        _id: null,
+        shortcode: null,
+        object: [],
+        time_start: null,
+        time_stop: null,
+        user_id: null,
+        task_id: null,
+      },
       drawingBox: {
         active: false,
         top: 0,
@@ -164,11 +192,214 @@ export default {
       ],
     };
   },
-  mounted() {
-    console.log(this.projectConfig);
-    console.log(this.databaseUrl);
-  },
+  mounted() {},
   methods: {
+    async initState() {
+      this.showLoading();
+      if (await this.checkDone()) {
+        if (await this.getImageByUser()) {
+          await this.updateStatusTask(true, Date.now());
+          await this.setImageData();
+          this.onTimeout();
+        } else {
+          this.onTimeout();
+          this.showMessage();
+        }
+      } else {
+        this.onTimeout();
+        this.showMessage();
+      }
+    },
+    async checkDone() {
+      try {
+        const countImageData = await Axios.get(
+          `${this.databaseUrl}/imagedata/findCountByProjectId`,
+          {
+            params: {
+              project_id: this.projectConfig._id,
+            },
+          }
+        );
+        const countTaskImage = await Axios.get(
+          `${this.databaseUrl}/taskimage/findCountImage`,
+          {
+            params: {
+              type: "labelling",
+              project_id: this.projectConfig._id,
+            },
+          }
+        );
+
+        if (countTaskImage.data != countImageData.data) {
+          await this.resetStatusTask();
+          return true;
+        } else {
+          return false;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getImageByUser() {
+      try {
+        const taskImage = await Axios.post(
+          `${this.databaseUrl}/taskimage/queryImage`,
+          {
+            type: "labelling",
+            user_id: this.getUserConfig._id,
+            project_id: this.projectConfig._id,
+          }
+        );
+
+        if (!taskImage) {
+          return false;
+        }
+
+        this.image.url = `${this.projectConfig.baseImageUrl}/${taskImage.data[0].shortcode}.jpg`;
+        this.taskImage._id = taskImage.data[0]._id;
+        this.taskImage.shortcode = taskImage.data[0].shortcode;
+        this.taskImage.status = taskImage.data[0].status;
+        this.taskImage.process = taskImage.data[0].process;
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async setImageData() {
+      try {
+        const { data } = await Axios.get(
+          `${this.databaseUrl}/imagedata/findOneByShortcode`,
+          {
+            params: {
+              shortcode: this.taskImage.shortcode,
+              project_id: this.projectConfig._id,
+            },
+          }
+        );
+
+        this.dataImage.description_english = data.description_english;
+        this.taskSuccess.time_start = Date.now();
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateStatusTask(inputStatus, timeStamp) {
+      try {
+        await Axios.put(`${this.databaseUrl}/taskimage/updateStatusImage`, {
+          type: "labelling",
+          id: this.taskImage._id,
+          time_start: timeStamp,
+          status: inputStatus,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async onSkip() {
+      this.boxes = [];
+      await this.initState();
+    },
+    async onSave() {
+      const validateTags = [];
+      this.descriptionTags.forEach((data) => validateTags.push(data));
+      if (validateTags.length >= 5) {
+        try {
+          console.log(this.boxes);
+
+          const mapPosition = this.boxes.map((data) => ({
+            name: data.label,
+            bndbox: {
+              xmin: data.left,
+              ymin: data.top,
+              xmax: data.left + data.width,
+              ymax: data.top + data.height,
+            },
+          }));
+
+          const data = {
+            shortcode: this.taskImage.shortcode,
+            filename: `${this.taskImage.shortcode}.jpg`,
+            size: [
+              {
+                width: "1024",
+                height: "576",
+              },
+            ],
+            object: [...mapPosition],
+          };
+
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        this.$q.notify({
+          color: "red-5",
+          textColor: "white",
+          icon: "warning",
+          message: "กรุณากรอกอย่างน้อย 5 คำ",
+        });
+      }
+    },
+    async checkConfig() {
+      const { data } = await Axios.get(
+        `${this.databaseUrl}/tasksuccess/findCountTaskSuccessByShortcode`,
+        {
+          params: {
+            type: "labelling",
+            shortcode: this.taskImage.shortcode,
+            project_id: this.projectConfig._id,
+          },
+        }
+      );
+      if (Number(data) >= Number(this.projectConfig.labelingCount)) {
+        try {
+          await Axios.put(`${this.databaseUrl}/taskimage/updateProcessImage`, {
+            type: "labelling",
+            id: this.taskImage._id,
+            time_start: 0,
+            status: true,
+            process: true,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
+    async resetStatusTask() {
+      try {
+        await Axios.put(`${this.databaseUrl}/taskimage/ResetTaskImage`, {
+          type: "labelling",
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    showLoading() {
+      this.$q.loading.show({
+        spinner: QSpinnerHourglass,
+        spinnerColor: "white",
+        spinnerSize: 180,
+        backgroundColor: "indigo-11",
+      });
+    },
+    showMessage() {
+      this.$q
+        .dialog({
+          title: "Alert",
+          message: "งานเสร๊จหมดแล้วจ้า ไม่มีงานให้ทำแล้ววววววว",
+        })
+        .onOk(() => {
+          this.$router.push("/");
+        })
+        .onCancel(() => {
+          this.$router.push("/");
+        })
+        .onDismiss(() => {
+          this.$router.push("/");
+        });
+    },
     startDrawingBox(e) {
       this.drawingBox = {
         width: 0,
@@ -212,33 +443,18 @@ export default {
       });
       this.activeBoxIndex = null;
     },
-    save() {
-      console.log(this.boxes);
-
-      const mapPosition = this.boxes.map((data) => ({
-        name: data.label,
-        bndbox: {
-          xmin: data.left,
-          ymin: data.top,
-          xmax: data.left + data.width,
-          ymax: data.top + data.height,
-        },
-      }));
-
-      const data = {
-        shortcode: "000000078400",
-        filename: "000000078400.jpg",
-        size: [
-          {
-            width: "1024",
-            height: "576",
-          },
-        ],
-        object: [...mapPosition],
-      };
-
-      console.log(data);
+    onTimeout() {
+      this.timer = setTimeout(() => {
+        this.$q.loading.hide();
+        this.timer = void 0;
+      }, 600);
     },
+  },
+  beforeDestroy() {
+    if (this.timer !== void 0) {
+      clearTimeout(this.timer);
+      this.$q.loading.hide();
+    }
   },
 };
 </script>

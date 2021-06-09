@@ -273,15 +273,6 @@ export default {
       descriptionTags: [],
       expDialog: false,
       tutorDialog: false,
-      config: {
-        url: "https://laberu-ptrmd2zvzq-as.a.run.app",
-        // url: "http://localhost:8080",
-        project_name: null,
-        baseImageUrl: null,
-        labelingCount: null,
-        labelType: null,
-        customerID: null,
-      },
       user: {
         _id: null,
         name: null,
@@ -324,10 +315,9 @@ export default {
       this.showLoading();
       if (await this.checkDone()) {
         if (await this.getImageByUser()) {
-          // await this.getUserTaskSuccess();
-          // await this.updateStatusTask(true, Date.now());
-          // await this.setImageData();
-          // this.onTimeout();
+          await this.updateStatusTask(true, Date.now());
+          await this.setImageData();
+          this.onTimeout();
         } else {
           this.onTimeout();
           this.showMessage();
@@ -356,8 +346,9 @@ export default {
             },
           }
         );
-        if ((countTaskImage.data = countImageData.data)) {
-          // await this.resetStatusTask();
+
+        if (countTaskImage.data != countImageData.data) {
+          await this.resetStatusTask();
           return true;
         } else {
           return false;
@@ -368,33 +359,43 @@ export default {
     },
     async getImageByUser() {
       try {
-        const response = await Axios.get(
-          `${this.databaseUrl}/task-image/findImage/user_id=${this.user._id}`
+        const taskImage = await Axios.post(
+          `${this.databaseUrl}/taskimage/queryImage`,
+          {
+            type: "annotation",
+            user_id: this.getUserConfig._id,
+            project_id: this.projectConfig._id,
+          }
         );
 
-        if (response.data[0] != null) {
-          this.image.url = `${this.config.baseImageUrl}${response.data[0].shortcode}.jpg`;
-          this.taskImage._id = response.data[0]._id;
-          this.taskImage.shortcode = response.data[0].shortcode;
-          this.taskImage.status = response.data[0].status;
-          this.taskImage.process = response.data[0].process;
-          return true;
-        } else {
+        if (!taskImage) {
           return false;
         }
+
+        this.image.url = `${this.projectConfig.baseImageUrl}/${taskImage.data[0].shortcode}.jpg`;
+        this.taskImage._id = taskImage.data[0]._id;
+        this.taskImage.shortcode = taskImage.data[0].shortcode;
+        this.taskImage.status = taskImage.data[0].status;
+        this.taskImage.process = taskImage.data[0].process;
+        return true;
       } catch (error) {
         console.log(error);
       }
     },
     async setImageData() {
       try {
-        const response = await Axios.get(
-          `${this.config.url}/image-data/shortcode=${this.taskImage.shortcode}`
+        const { data } = await Axios.get(
+          `${this.databaseUrl}/imagedata/findOneByShortcode`,
+          {
+            params: {
+              shortcode: this.taskImage.shortcode,
+              project_id: this.projectConfig._id,
+            },
+          }
         );
-        this.dataImage._id = response.data[0]._id;
-        this.dataImage.shortcode = response.data[0].shortcode;
+
         this.dataImage.description_english =
-          response.data[0].description_english;
+          data.annotation.description_english;
         this.taskSuccess.time_start = Date.now();
         return true;
       } catch (error) {
@@ -403,22 +404,15 @@ export default {
     },
     async updateStatusTask(inputStatus, timeStamp) {
       try {
-        await Axios.put(
-          `${this.config.url}/task-image/update_status/_id=${this.taskImage._id}`,
-          {
-            time_start: timeStamp,
-            status: inputStatus,
-          }
-        );
+        await Axios.put(`${this.databaseUrl}/taskimage/updateStatusImage`, {
+          type: "annotation",
+          id: this.taskImage._id,
+          time_start: timeStamp,
+          status: inputStatus,
+        });
       } catch (error) {
         console.log(error);
       }
-    },
-    async getUserTaskSuccess() {
-      const response = await Axios.get(
-        `${this.config.url}/task-success/findByUser/user_id=${this.user._id}&accept=true`
-      );
-      this.user.count = response.data;
     },
     async onSkip() {
       this.descriptionTags = [];
@@ -430,14 +424,16 @@ export default {
       if (validateTags.length >= 5) {
         try {
           const desciptionTags = validateTags.join(" ");
-          await Axios.post(`${this.config.url}/task-success/create`, {
+          await Axios.post(`${this.databaseUrl}/tasksuccess/create`, {
+            type: "annotation",
             shortcode: this.taskImage.shortcode,
             description: desciptionTags,
             time_start: this.taskSuccess.time_start,
             time_stop: Date.now(),
             accept: true,
-            user_id: this.user._id,
+            user_id: this.getUserConfig._id,
             task_id: this.taskImage._id,
+            project_id: this.projectConfig._id,
           });
           await this.updateStatusTask(false, 0);
           await this.checkConfig();
@@ -457,19 +453,25 @@ export default {
       }
     },
     async checkConfig() {
-      const countSuccess = await Axios.get(
-        `${this.config.url}/task-success/findCountByShortcode/shortcode=${this.taskImage.shortcode}`
+      const { data } = await Axios.get(
+        `${this.databaseUrl}/tasksuccess/findCountTaskSuccessByShortcode`,
+        {
+          params: {
+            type: "annotation",
+            shortcode: this.taskImage.shortcode,
+            project_id: this.projectConfig._id,
+          },
+        }
       );
-      if (countSuccess.data >= Number(this.config.labelingCount)) {
+      if (Number(data) >= Number(this.projectConfig.labelingCount)) {
         try {
-          await Axios.put(
-            `${this.config.url}/task-image/update_process/_id=${this.taskImage._id}`,
-            {
-              time_start: 0,
-              status: true,
-              process: true,
-            }
-          );
+          await Axios.put(`${this.databaseUrl}/taskimage/updateProcessImage`, {
+            type: "annotation",
+            id: this.taskImage._id,
+            time_start: 0,
+            status: true,
+            process: true,
+          });
         } catch (error) {
           console.log(error);
         }
@@ -477,10 +479,8 @@ export default {
     },
     async resetStatusTask() {
       try {
-        await Axios.put(`${this.config.url}/task-image/reset_status_all`, {
-          time_start: 0,
-          status: false,
-          process: false,
+        await Axios.put(`${this.databaseUrl}/taskimage/ResetTaskImage`, {
+          type: "annotation",
         });
       } catch (error) {
         console.log(error);

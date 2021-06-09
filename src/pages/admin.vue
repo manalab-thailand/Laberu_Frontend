@@ -41,18 +41,10 @@
   </q-layout>
 </template>
 <script>
-import { mapGetters } from "vuex";
 import backgroundDisplay from "../components/admin/adminBG";
 import Usertabs from "../components/admin/user_tabs.vue";
 import Imagetabs from "../components/admin/image_tabs.vue";
-import Axios from "axios";
 export default {
-  computed: {
-    ...mapGetters({
-      user_email: "user_email/user_email",
-      user_id: "user_id/user_id",
-    }),
-  },
   components: {
     backgroundDisplay,
     Usertabs,
@@ -62,16 +54,6 @@ export default {
     return {
       tab: "users",
     };
-  },
-  async mounted() {
-    // await this.checkStatusAdmin();
-  },
-  methods: {
-    async checkStatusAdmin() {
-      if (this.user_id != "609286d87e5ba0482c244f1e") {
-        this.$router.push("/");
-      }
-    },
   },
 };
 </script>

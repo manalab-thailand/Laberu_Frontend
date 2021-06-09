@@ -201,23 +201,17 @@
 
 <script>
 import backgroundDisplay from "../components/login_animation";
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { QSpinnerFacebook } from "quasar";
 import Axios from "app/node_modules/axios";
 export default {
   computed: {
     ...mapGetters({
-      user_uid: "user_uid/user_uid",
-      user_email: "user_email/user_email",
+      databaseUrl: "db_config/databaseUrl",
     }),
   },
   data() {
     return {
-      config: {
-        url: "https://laberu-ptrmd2zvzq-as.a.run.app",
-        // url: "http://localhost:8080",
-      },
       isPwd: true,
       email: null,
       password: null,
@@ -325,8 +319,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      setUserID: "user_id/setUserID",
-      setUserEmail: "user_email/setUserEmail",
+      setUserConfig: "user_config/setUserConfig",
     }),
     async onSubmit() {
       if (this.accept !== true) {
@@ -365,7 +358,7 @@ export default {
     },
     async createAccount(user) {
       try {
-        await Axios.post(`${this.config.url}/user/create`, {
+        await Axios.post(`${this.databaseUrl}/user-laberu/create`, {
           firstname: this.fname,
           lastname: this.lname,
           email: this.email,
@@ -379,19 +372,36 @@ export default {
         }).then(async (response) => {
           this.onTimeout();
           await this.getUserID(user);
-          this.$router.push({ name: "index" });
+          this.$router.push({ name: "home" });
         });
       } catch (error) {
         console.log(error);
       }
     },
-    async getUserID(user) {
+    async getUserID(firebaseUser) {
       try {
-        const response = await this.$axios.get(
-          `${this.config.url}/user/check_login/uid=${user.uid}`
+        const user = await this.$axios.get(
+          `${this.databaseUrl}/user-laberu/checkuserActive`,
+          {
+            params: {
+              uid: firebaseUser.uid,
+            },
+          }
         );
-        this.setUserEmail({ email: user.email });
-        this.setUserID({ id: response.data[0]._id });
+
+        this.setUserConfig({
+          _id: user._id,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          birth: user.birth,
+          email: user.email,
+          phonenumber: user.phonenumber,
+          career: user.career,
+          location: user.location,
+          province: user.province,
+          status: user.status,
+          uid: user.uid,
+        });
       } catch (error) {
         console.log(error);
       }

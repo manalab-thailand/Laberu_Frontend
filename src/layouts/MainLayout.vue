@@ -70,12 +70,6 @@
 import { mapGetters } from "vuex";
 export default {
   name: "MainLayout",
-  computed: {
-    ...mapGetters({
-      user_email: "user_email/user_email",
-      user_id: "user_id/user_id",
-    }),
-  },
   watch: {
     user_email(val) {
       this.user.email = val;

@@ -67,6 +67,7 @@ export default {
   async mounted() {
     // await this.save();
     await this.getProject();
+    // await this.insertMany();
   },
   methods: {
     ...mapActions({
@@ -74,7 +75,7 @@ export default {
     }),
     async save() {
       try {
-        await Axios.post("http://localhost:3000/projectmanagement/create", {
+        await Axios.post(`${this.databaseUrl}/projectmanagement/create`, {
           project_name: "classification.tech",
           labelType: "classification",
           labellingCount: 3,
@@ -93,10 +94,23 @@ export default {
       );
       this.projects = response.data;
     },
+    // async insertMany() {
+    //   console.log(this.myJson);
+    //   const mapdata = this.myJson.map((item) => ({
+    //     _id: item._id.$oid,
+    //     shortcode: item.shortcode,
+    //     annotation: {
+    //       description_english: item.description_english,
+    //     },
+    //     object: null,
+    //     project_id: item.project_id,
+    //   }));
+
+    //   console.log(mapdata);
+    // },
     getStarted(data) {
-      console.log(data);
       this.setProjectConfig({
-        id: data._id,
+        _id: data._id,
         config: data.config,
         labellingCount: data.labellingCount,
         baseImageUrl: data.baseImageUrl,
