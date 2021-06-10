@@ -121,7 +121,7 @@ export default {
         case "annotation":
           this.$router.push({ name: "annotation" });
           break;
-        case "labelling":
+        case "detection":
           this.$router.push({ name: "label" });
           break;
         case "classification":
@@ -131,7 +131,7 @@ export default {
     },
     bgColorBox(type) {
       switch (type) {
-        case "labelling": {
+        case "detection": {
           return "linear-gradient(to right, #6782b4, #b1bfd8)";
         }
         case "annotation": {

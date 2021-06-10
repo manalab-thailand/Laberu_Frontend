@@ -82,6 +82,7 @@
                       class="text-weight-bold btn-lg"
                       style="width: 90%"
                       label="SKIP"
+                      @click="onSkip()"
                     />
                   </div>
                 </div>
@@ -93,7 +94,7 @@
                       class="text-weight-bold btn-lg"
                       style="width: 90%"
                       label="SAVE"
-                      @click="save()"
+                      @click="onSave()"
                     />
                   </div>
                 </div>
@@ -140,9 +141,8 @@ export default {
         url: null,
       },
       dataImage: {
-        _id: null,
+        object: null,
         shortcode: null,
-        description_english: null,
       },
       taskImage: {
         _id: null,
@@ -277,7 +277,7 @@ export default {
           }
         );
 
-        this.dataImage.description_english = data.description_english;
+        this.dataImage.object = data.object;
         this.taskSuccess.time_start = Date.now();
         return true;
       } catch (error) {
@@ -301,45 +301,42 @@ export default {
       await this.initState();
     },
     async onSave() {
-      const validateTags = [];
-      this.descriptionTags.forEach((data) => validateTags.push(data));
-      if (validateTags.length >= 5) {
-        try {
-          console.log(this.boxes);
+      try {
+        console.log(this.boxes);
 
-          const mapPosition = this.boxes.map((data) => ({
-            name: data.label,
-            bndbox: {
-              xmin: data.left,
-              ymin: data.top,
-              xmax: data.left + data.width,
-              ymax: data.top + data.height,
-            },
-          }));
+        const mapPosition = this.boxes.map((data) => ({
+          name: data.label,
+          bndbox: {
+            xmin: data.left,
+            ymin: data.top,
+            xmax: data.left + data.width,
+            ymax: data.top + data.height,
+          },
+        }));
 
-          const data = {
-            shortcode: this.taskImage.shortcode,
-            filename: `${this.taskImage.shortcode}.jpg`,
-            size: [
-              {
-                width: "1024",
-                height: "576",
-              },
-            ],
-            object: [...mapPosition],
-          };
+        console.log(mapPosition);
 
-          console.log(data);
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        this.$q.notify({
-          color: "red-5",
-          textColor: "white",
-          icon: "warning",
-          message: "กรุณากรอกอย่างน้อย 5 คำ",
-        });
+        // const data = {
+        //   shortcode: this.taskImage.shortcode,
+        //   filename: `${this.taskImage.shortcode}.jpg`,
+        //   size: [
+        //     {
+        //       width: this.dataImage.object.size.width,
+        //       height: this.dataImage.object.size.height,
+        //     },
+        //   ],
+        //   object: [...mapPosition],
+        //   time_start: this.taskSuccess.time_start,
+        //   time_stop: Date.now(),
+        //   accept: true,
+        //   user_id: this.getUserConfig._id,
+        //   task_id: this.taskImage._id,
+        //   project_id: this.projectConfig._id,
+        // };
+
+        // console.log(data);
+      } catch (error) {
+        console.log(error);
       }
     },
     async checkConfig() {
