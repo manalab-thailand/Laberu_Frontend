@@ -88,30 +88,6 @@
                   <q-card-section>
                     <div class="row">
                       <div class="col">
-                        <div class="totalText">ผ่าน</div>
-                      </div>
-                      <div class="col">
-                        <div class="totalMoneyText">
-                          {{ userData.countAnnotation }} รูป
-                        </div>
-                      </div>
-                    </div>
-                  </q-card-section>
-                  <q-card-section>
-                    <div class="row">
-                      <div class="col">
-                        <div class="totalText">ไม่ผ่าน</div>
-                      </div>
-                      <div class="col">
-                        <div class="totalMoneyText">
-                          {{ userData.countNotSuccess }} รูป
-                        </div>
-                      </div>
-                    </div>
-                  </q-card-section>
-                  <q-card-section>
-                    <div class="row">
-                      <div class="col">
                         <div class="totalText">เป็นจำนวนเงิน</div>
                       </div>
                       <div class="col">
@@ -146,30 +122,6 @@
                   <q-card-section>
                     <div class="row">
                       <div class="col">
-                        <div class="totalText">ผ่าน</div>
-                      </div>
-                      <div class="col">
-                        <div class="totalMoneyText">
-                          {{ userData.countObject }} รูป
-                        </div>
-                      </div>
-                    </div>
-                  </q-card-section>
-                  <q-card-section>
-                    <div class="row">
-                      <div class="col">
-                        <div class="totalText">ไม่ผ่าน</div>
-                      </div>
-                      <div class="col">
-                        <div class="totalMoneyText">
-                          {{ userData.countNotSuccess }} รูป
-                        </div>
-                      </div>
-                    </div>
-                  </q-card-section>
-                  <q-card-section>
-                    <div class="row">
-                      <div class="col">
                         <div class="totalText">เป็นจำนวนเงิน</div>
                       </div>
                       <div class="col">
@@ -197,30 +149,6 @@
                       <div class="col">
                         <div class="totalMoneyText">
                           {{ userData.countClassification }} รูป
-                        </div>
-                      </div>
-                    </div>
-                  </q-card-section>
-                  <q-card-section>
-                    <div class="row">
-                      <div class="col">
-                        <div class="totalText">ผ่าน</div>
-                      </div>
-                      <div class="col">
-                        <div class="totalMoneyText">
-                          {{ userData.countClassification }} รูป
-                        </div>
-                      </div>
-                    </div>
-                  </q-card-section>
-                  <q-card-section>
-                    <div class="row">
-                      <div class="col">
-                        <div class="totalText">ไม่ผ่าน</div>
-                      </div>
-                      <div class="col">
-                        <div class="totalMoneyText">
-                          {{ userData.countNotSuccess }} รูป
                         </div>
                       </div>
                     </div>
