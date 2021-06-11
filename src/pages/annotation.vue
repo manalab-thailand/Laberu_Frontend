@@ -463,7 +463,7 @@ export default {
           },
         }
       );
-      if (Number(data) >= Number(this.projectConfig.labelingCount)) {
+      if (Number(data) >= Number(this.projectConfig.labellingCount)) {
         try {
           await Axios.put(`${this.databaseUrl}/taskimage/updateProcessImage`, {
             type: "annotation",

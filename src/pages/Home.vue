@@ -25,12 +25,6 @@ export default {
     backgroundDisplay,
     listproject,
   },
-  mounted() {},
-  methods: {
-    async insertMany() {
-      const response = await Axios.get("");
-    },
-  },
 };
 </script>
 

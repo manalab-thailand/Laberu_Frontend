@@ -1,28 +1,30 @@
 <template>
   <div class="box-wrapper">
-    <div
-      style="padding: 0 10px"
-      class="label"
-      v-if="bLabel"
-      :style="{
-        top: bTop - 10 + 'px',
-        left: bLeft + 'px',
-        width: bWidth + 'px',
-      }"
-    >
-      {{ bLabel }}
+    <div class="row justify-between">
+      <div
+        style="padding: 0 5px"
+        class="label"
+        v-if="bLabel"
+        :style="{
+          top: bTop - 20 + 'px',
+          left: bLeft + 'px',
+          width: bWidth + 'px',
+        }"
+      >
+        {{ bLabel }}
+      </div>
+      <div
+        class="box-delete"
+        v-on:click="removeMyself"
+        v-if="bActive"
+        :style="{
+          top: bTop - 28 + 'px',
+          left: bLeft + bWidth - 17 + 'px',
+        }"
+      >
+        x
+      </div>
     </div>
-    <a
-      class="box-delete"
-      v-on:click="removeMyself"
-      v-if="bActive"
-      :style="{
-        top: bTop - 18 + 'px',
-        left: bLeft + bWidth - 20 + 'px',
-      }"
-    >
-      x
-    </a>
     <div
       class="box"
       :style="{

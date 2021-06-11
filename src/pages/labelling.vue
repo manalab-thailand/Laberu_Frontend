@@ -8,7 +8,7 @@
             <div
               style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px"
               id="image-wrapper"
-              :style="{ backgroundImage: `url(label_1.jpg)` }"
+              :style="{ backgroundImage: `url(${this.image.url})` }"
               @mousedown="startDrawingBox"
               @mousemove="changeBox"
               @mouseup="stopDrawingBox"
@@ -58,8 +58,8 @@
                       bg-color="white"
                       filled
                       v-model="box.label"
-                      :options="options"
-                      option-value="id"
+                      :options="dataImage.config"
+                      option-value="desc"
                       option-label="desc"
                       emit-value
                       map-options
@@ -109,9 +109,11 @@
 
 <script>
 import Box from "../components/Box.vue";
+import { QSpinnerHourglass } from "quasar";
 import backgroundDisplay from "../components/login_animation";
 import { mapGetters } from "vuex";
 import { pick } from "lodash";
+import Axios from "axios";
 
 const getCoursorLeft = (e) => {
   return e.pageX - 78; //78
@@ -126,6 +128,7 @@ export default {
   computed: {
     ...mapGetters({
       databaseUrl: "db_config/databaseUrl",
+      getUserConfig: "user_config/getUserConfig",
       projectConfig: "project_config/projectConfig",
     }),
   },
@@ -138,11 +141,16 @@ export default {
         count: null,
       },
       image: {
-        url: null,
+        url: "",
       },
       dataImage: {
-        object: null,
+        detection: null,
         shortcode: null,
+        config: [
+          {
+            desc: "",
+          },
+        ],
       },
       taskImage: {
         _id: null,
@@ -168,31 +176,13 @@ export default {
       },
       boxes: [],
       activeBoxIndex: null,
-      options: [
-        {
-          id: "manholes cover",
-          desc: "ฝาท่อ",
-        },
-        {
-          id: "crack",
-          desc: "หลุม",
-        },
-        {
-          id: "pothole",
-          desc: "รอยแตก",
-        },
-        {
-          id: "bridge-neck",
-          desc: "คอสะพาน",
-        },
-        {
-          id: "water",
-          desc: "น้ำขัง",
-        },
-      ],
     };
   },
-  mounted() {},
+  async mounted() {
+    console.log(this.projectConfig.config);
+    console.log(this.getUserConfig);
+    await this.initState();
+  },
   methods: {
     async initState() {
       this.showLoading();
@@ -217,6 +207,7 @@ export default {
           {
             params: {
               project_id: this.projectConfig._id,
+              // project_id: "test_project",
             },
           }
         );
@@ -226,6 +217,7 @@ export default {
             params: {
               type: "labelling",
               project_id: this.projectConfig._id,
+              // project_id: "test_project",
             },
           }
         );
@@ -248,6 +240,7 @@ export default {
             type: "labelling",
             user_id: this.getUserConfig._id,
             project_id: this.projectConfig._id,
+            // project_id: "test_project",
           }
         );
 
@@ -255,7 +248,12 @@ export default {
           return false;
         }
 
+        // https://storage.googleapis.com/smooth-street/session-1605784707-1176.jpg
+
+        console.log(taskImage.data[0].shortcode);
+
         this.image.url = `${this.projectConfig.baseImageUrl}/${taskImage.data[0].shortcode}.jpg`;
+        // this.image.url = `https://storage.googleapis.com/smooth-street/${taskImage.data[0].shortcode}.jpg`;
         this.taskImage._id = taskImage.data[0]._id;
         this.taskImage.shortcode = taskImage.data[0].shortcode;
         this.taskImage.status = taskImage.data[0].status;
@@ -273,12 +271,15 @@ export default {
             params: {
               shortcode: this.taskImage.shortcode,
               project_id: this.projectConfig._id,
+              // project_id: "test_project",
             },
           }
         );
 
-        this.dataImage.object = data.object;
+        this.dataImage.config = this.projectConfig.config;
+        this.dataImage.detection = data.detection.size;
         this.taskSuccess.time_start = Date.now();
+
         return true;
       } catch (error) {
         console.log(error);
@@ -301,42 +302,73 @@ export default {
       await this.initState();
     },
     async onSave() {
-      try {
-        console.log(this.boxes);
+      const checkObject = this.boxes.map((data) =>
+        !data.label ? false : true
+      );
 
-        const mapPosition = this.boxes.map((data) => ({
-          name: data.label,
-          bndbox: {
-            xmin: data.left,
-            ymin: data.top,
-            xmax: data.left + data.width,
-            ymax: data.top + data.height,
-          },
-        }));
+      if (checkObject.includes(false) != true) {
+        try {
+          const mapPosition = this.boxes.map((data) => {
+            const label = this.dataImage.config.filter(
+              (item) => data.label == item.desc
+            );
 
-        console.log(mapPosition);
+            const realSizeX = this.dataImage.detection.width;
+            const realSizeY = this.dataImage.detection.height;
 
-        // const data = {
-        //   shortcode: this.taskImage.shortcode,
-        //   filename: `${this.taskImage.shortcode}.jpg`,
-        //   size: [
-        //     {
-        //       width: this.dataImage.object.size.width,
-        //       height: this.dataImage.object.size.height,
-        //     },
-        //   ],
-        //   object: [...mapPosition],
-        //   time_start: this.taskSuccess.time_start,
-        //   time_stop: Date.now(),
-        //   accept: true,
-        //   user_id: this.getUserConfig._id,
-        //   task_id: this.taskImage._id,
-        //   project_id: this.projectConfig._id,
-        // };
+            const xmin = (realSizeX / 100) * ((data.left / 1024) * 100);
+            const ymin = (realSizeY / 100) * ((data.top / 576) * 100);
 
-        // console.log(data);
-      } catch (error) {
-        console.log(error);
+            const xmax =
+              (realSizeX / 100) * (((data.left + data.width) / 1024) * 100);
+            const ymax =
+              (realSizeY / 100) * (((data.top + data.height) / 576) * 100);
+
+            return {
+              name: label[0].id,
+              bndbox: {
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+              },
+            };
+          });
+
+          const data = {
+            type: "labelling",
+            shortcode: this.taskImage.shortcode,
+            filename: `${this.taskImage.shortcode}.jpg`,
+            size: [
+              {
+                width: this.dataImage.detection.width,
+                height: this.dataImage.detection.height,
+              },
+            ],
+            object: [...mapPosition],
+            time_start: this.taskSuccess.time_start,
+            time_stop: Date.now(),
+            accept: true,
+            user_id: this.getUserConfig._id,
+            task_id: this.taskImage._id,
+            project_id: this.projectConfig._id,
+          };
+
+          await Axios.post(`${this.databaseUrl}/tasksuccess/create`, data);
+          await this.updateStatusTask(false, 0);
+          await this.checkConfig();
+          this.boxes = [];
+          this.initState();
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        this.$q.notify({
+          color: "red-5",
+          textColor: "white",
+          icon: "warning",
+          message: "กรุณาระบุให้ครบทุกอัน",
+        });
       }
     },
     async checkConfig() {
@@ -350,7 +382,8 @@ export default {
           },
         }
       );
-      if (Number(data) >= Number(this.projectConfig.labelingCount)) {
+
+      if (Number(data) >= Number(this.projectConfig.labellingCount)) {
         try {
           await Axios.put(`${this.databaseUrl}/taskimage/updateProcessImage`, {
             type: "labelling",
@@ -372,6 +405,40 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async save() {
+      // await Axios.post(`${this.databaseUrl}/imagedata/create`, {
+      //   shortcode: "session-1605784707-1443",
+      //   annotation: null,
+      //   object: {
+      //     size: {
+      //       width: 1920,
+      //       height: 1080,
+      //     },
+      //  },
+      // project_id: "test_project",
+      // });
+      // console.log("Add Image Success !!");
+      // const { data } = await Axios.get(
+      //   "${this.databaseUrl}/imagedata/findAllByProjectId",
+      //   {
+      //   params: {
+      //      project_id: "test_project",
+      //     },
+      //   }
+      // );
+      // const mapdata = data.map((item) => ({
+      //   shortcode: item.shortcode,
+      //   time_start: "0",
+      //   status: false,
+      //  process: false,
+      //  project_id: "test_project",
+      // }));
+      // console.log(mapdata);
+      // await Axios.post("${this.databaseUrl}/taskimage/createInsertMany", {
+      //   type: "labelling",
+      //   mapdata: mapdata,
+      // });
     },
     showLoading() {
       this.$q.loading.show({

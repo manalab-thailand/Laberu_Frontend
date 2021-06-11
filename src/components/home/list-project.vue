@@ -74,19 +74,40 @@ export default {
       setProjectConfig: "project_config/setProjectConfig",
     }),
     async save() {
-      try {
-        await Axios.post(`${this.databaseUrl}/projectmanagement/create`, {
-          project_name: "classification.tech",
-          labelType: "classification",
-          labellingCount: 3,
-          baseImageUrl: "https://storage.googleapis.com/mscoco4000/train2017",
-          priceEach: 1,
-          config: [null],
-          process: false,
-        });
-      } catch (error) {
-        console.log(error);
-      }
+      //   try {
+      //   await Axios.post(`${this.databaseUrl}/projectmanagement/create`, {
+      //     project_name: "smooth street",
+      //     labelType: "labelling",
+      //     labellingCount: 1,
+      //     baseImageUrl: "https://storage.googleapis.com/smooth-street",
+      //     priceEach: 1,
+      //     config: [
+      //       {
+      //         id: "manholes cover",
+      //         desc: "ฝาท่อ",
+      //       },
+      //       {
+      //         id: "crack",
+      //         desc: "หลุม",
+      //       },
+      //       {
+      //         id: "pothole",
+      //         desc: "รอยแตก",
+      //       },
+      //       {
+      //         id: "bridge-neck",
+      //         desc: "คอสะพาน",
+      //       },
+      //       {
+      //         id: "water",
+      //         desc: "น้ำขัง",
+      //       },
+      //     ],
+      //     process: true,
+      //   });
+      // } catch (error) {
+      //   console.log(error);
+      // }
     },
     async getProject() {
       const response = await Axios.get(
@@ -121,7 +142,7 @@ export default {
         case "annotation":
           this.$router.push({ name: "annotation" });
           break;
-        case "detection":
+        case "labelling":
           this.$router.push({ name: "label" });
           break;
         case "classification":
@@ -131,7 +152,7 @@ export default {
     },
     bgColorBox(type) {
       switch (type) {
-        case "detection": {
+        case "labelling": {
           return "linear-gradient(to right, #6782b4, #b1bfd8)";
         }
         case "annotation": {
