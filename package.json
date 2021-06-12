@@ -10,6 +10,7 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
+    "@coderstm/quasar-google-maps": "^1.0.4",
     "@johmun/vue-tags-input": "^2.1.0",
     "@quasar/extras": "^1.0.0",
     "@voerro/vue-tagsinput": "^2.6.0",
@@ -20,7 +21,8 @@
     "firebase": "^8.3.0",
     "idle-vue": "^2.0.5",
     "qs": "^6.10.1",
-    "quasar": "^1.0.0"
+    "quasar": "^1.0.0",
+    "vue2-google-maps": "^0.10.7"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",
