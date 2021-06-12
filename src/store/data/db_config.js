@@ -1,6 +1,6 @@
 const state = {
     // databaseUrl: 'http://localhost:3000',
-    databaseUrl: 'https://laberu-ptrmd2zvzq-as.a.run.app',
+    // databaseUrl: 'https://laberu-ptrmd2zvzq-as.a.run.app',
 }
 
 const getters = {

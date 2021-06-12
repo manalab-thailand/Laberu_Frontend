@@ -21,7 +21,8 @@
 }
 
 .context {
-  width: 90%;
+  padding: 0px 20px 0px 10px;
+  width: 100%;
   position: absolute;
   top: 6rem;
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <backgroundDisplay></backgroundDisplay>
-    <div class="row justify-center">
+    <div class="row">
       <div class="context row">
         <div class="col-9">
           <div class="slider-ctn">
@@ -116,11 +116,11 @@ import { pick } from "lodash";
 import Axios from "axios";
 
 const getCoursorLeft = (e) => {
-  return e.pageX - 78; //78
+  return e.pageX - 12.5;
 };
 
 const getCoursorTop = (e) => {
-  return e.pageY - 99; //99
+  return e.pageY - 99;
 };
 
 export default {
@@ -141,7 +141,7 @@ export default {
         count: null,
       },
       image: {
-        url: "",
+        url: "label_1.jpg",
       },
       dataImage: {
         detection: null,
@@ -179,11 +179,31 @@ export default {
     };
   },
   async mounted() {
-    console.log(this.projectConfig.config);
-    console.log(this.getUserConfig);
-    await this.initState();
+    this.resolution();
+    // console.log(this.projectConfig.config);
+    // console.log(this.getUserConfig);
+    // await this.initState();
   },
   methods: {
+    resolution() {
+      if (window.screen.width * window.devicePixelRatio <= 1366) {
+        this.$q
+          .dialog({
+            title: "Alert",
+            message:
+              "หน้าจอของคุณมีขนาดความละเอียดไม่ตรงตามมาตรฐานของเรา ของอภัยในความไม่สะดวก",
+          })
+          .onOk(() => {
+            this.$router.push({ name: "home" });
+          })
+          .onCancel(() => {
+            this.$router.push({ name: "home" });
+          })
+          .onDismiss(() => {
+            this.$router.push({ name: "home" });
+          });
+      }
+    },
     async initState() {
       this.showLoading();
       if (await this.checkDone()) {
