@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import Box from "../components/Box.vue";
+import Box from "../components/detection/Box.vue";
 import { QSpinnerHourglass } from "quasar";
 import backgroundDisplay from "../components/login_animation";
 import { mapGetters } from "vuex";
@@ -148,7 +148,7 @@ export default {
         shortcode: null,
         config: [
           {
-            desc: "",
+            desc: "ฝาท่อ",
           },
         ],
       },
@@ -179,7 +179,7 @@ export default {
     };
   },
   async mounted() {
-    this.resolution();
+    // this.resolution();
     // console.log(this.projectConfig.config);
     // console.log(this.getUserConfig);
     // await this.initState();
@@ -333,8 +333,10 @@ export default {
               (item) => data.label == item.desc
             );
 
-            const realSizeX = this.dataImage.detection.width;
-            const realSizeY = this.dataImage.detection.height;
+            // const realSizeX = this.dataImage.detection.width;
+            // const realSizeY = this.dataImage.detection.height;
+            const realSizeX = 1920;
+            const realSizeY = 1080;
 
             const xmin = (realSizeX / 100) * ((data.left / 1024) * 100);
             const ymin = (realSizeY / 100) * ((data.top / 576) * 100);
