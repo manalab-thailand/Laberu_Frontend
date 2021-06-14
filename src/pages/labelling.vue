@@ -141,7 +141,7 @@ export default {
         count: null,
       },
       image: {
-        url: "label_1.jpg",
+        url: "",
       },
       dataImage: {
         detection: null,
@@ -179,10 +179,8 @@ export default {
     };
   },
   async mounted() {
-    // this.resolution();
-    // console.log(this.projectConfig.config);
-    // console.log(this.getUserConfig);
-    // await this.initState();
+    await this.resolution();
+    await this.initState();
   },
   methods: {
     resolution() {
@@ -473,17 +471,17 @@ export default {
     showMessage() {
       this.$q
         .dialog({
-          title: "Alert",
-          message: "งานเสร๊จหมดแล้วจ้า ไม่มีงานให้ทำแล้ววววววว",
+          title: "แจ้งเตือน",
+          message: "งานส่วนนี้สำหรับท่าน เสร็จหมดแล้วกรุณาเลือกงานอื่น",
         })
         .onOk(() => {
-          this.$router.push("/");
+          this.$router.push({ name: "home" });
         })
         .onCancel(() => {
-          this.$router.push("/");
+          this.$router.push({ name: "home" });
         })
         .onDismiss(() => {
-          this.$router.push("/");
+          this.$router.push({ name: "home" });
         });
     },
     startDrawingBox(e) {
