@@ -2,7 +2,7 @@
   <div>
     <backgroundDisplay></backgroundDisplay>
     <div class="row">
-      <div class="context row">
+      <div class="context row" style="max-width: 1920px">
         <div class="col-9">
           <div class="slider-ctn">
             <div
@@ -44,6 +44,9 @@
             >
               <div class="col-11" style="overflow: auto">
                 <div class="title-opject">Labelling List</div>
+                <div class="text-subtitle2 text-white text-center">
+                  {{ taskImage.shortcode }}
+                </div>
                 <div>
                   <div
                     style="display: flex; justify-content: center"
@@ -116,7 +119,7 @@ import { pick } from "lodash";
 import Axios from "axios";
 
 const getCoursorLeft = (e) => {
-  return e.pageX - 12.5;
+  return e.pageX - 12;
 };
 
 const getCoursorTop = (e) => {
@@ -235,7 +238,6 @@ export default {
             params: {
               type: "labelling",
               project_id: this.projectConfig._id,
-              // project_id: "test_project",
             },
           }
         );
@@ -268,8 +270,6 @@ export default {
 
         // https://storage.googleapis.com/smooth-street/session-1605784707-1176.jpg
 
-        console.log(taskImage.data[0].shortcode);
-
         this.image.url = `${this.projectConfig.baseImageUrl}/${taskImage.data[0].shortcode}.jpg`;
         // this.image.url = `https://storage.googleapis.com/smooth-street/${taskImage.data[0].shortcode}.jpg`;
         this.taskImage._id = taskImage.data[0]._id;
@@ -295,7 +295,7 @@ export default {
         );
 
         this.dataImage.config = this.projectConfig.config;
-        this.dataImage.detection = data.detection.size;
+        this.dataImage.detection = { width: 1920, height: 1080 };
         this.taskSuccess.time_start = Date.now();
 
         return true;
@@ -304,6 +304,7 @@ export default {
       }
     },
     async updateStatusTask(inputStatus, timeStamp) {
+      console.log(inputStatus, timeStamp);
       try {
         await Axios.put(`${this.databaseUrl}/taskimage/updateStatusImage`, {
           type: "labelling",
@@ -317,6 +318,13 @@ export default {
     },
     async onSkip() {
       this.boxes = [];
+      await Axios.put(`${this.databaseUrl}/taskimage/updateProcessImage`, {
+        type: "labelling",
+        id: this.taskImage._id,
+        time_start: 0,
+        status: true,
+        process: true,
+      });
       await this.initState();
     },
     async onSave() {
@@ -331,10 +339,8 @@ export default {
               (item) => data.label == item.desc
             );
 
-            // const realSizeX = this.dataImage.detection.width;
-            // const realSizeY = this.dataImage.detection.height;
-            const realSizeX = 1920;
-            const realSizeY = 1080;
+            const realSizeX = this.dataImage.detection.width;
+            const realSizeY = this.dataImage.detection.height;
 
             const xmin = (realSizeX / 100) * ((data.left / 1024) * 100);
             const ymin = (realSizeY / 100) * ((data.top / 576) * 100);

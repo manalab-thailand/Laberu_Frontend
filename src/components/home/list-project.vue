@@ -39,7 +39,7 @@
           </div>
           <div class="card__apply">
             <div class="row justify-end">
-              <a href="#" @click="getStarted(project)"
+              <a class="cursor-pointer" @click="getStarted(project)"
                 >Get started <i class="fas fa-arrow-right"></i
               ></a>
             </div>
@@ -65,70 +65,18 @@ export default {
     };
   },
   async mounted() {
-    // await this.save();
     await this.getProject();
-    // await this.insertMany();
   },
   methods: {
     ...mapActions({
       setProjectConfig: "project_config/setProjectConfig",
     }),
-    async save() {
-      //   try {
-      //   await Axios.post(`${this.databaseUrl}/projectmanagement/create`, {
-      //     project_name: "smooth street",
-      //     labelType: "labelling",
-      //     labellingCount: 1,
-      //     baseImageUrl: "https://storage.googleapis.com/smooth-street",
-      //     priceEach: 1,
-      //     config: [
-      //       {
-      //         id: "manholes cover",
-      //         desc: "ฝาท่อ",
-      //       },
-      //       {
-      //         id: "crack",
-      //         desc: "หลุม",
-      //       },
-      //       {
-      //         id: "pothole",
-      //         desc: "รอยแตก",
-      //       },
-      //       {
-      //         id: "bridge-neck",
-      //         desc: "คอสะพาน",
-      //       },
-      //       {
-      //         id: "water",
-      //         desc: "น้ำขัง",
-      //       },
-      //     ],
-      //     process: true,
-      //   });
-      // } catch (error) {
-      //   console.log(error);
-      // }
-    },
     async getProject() {
       const response = await Axios.get(
         `${this.databaseUrl}/projectmanagement/findProject`
       );
       this.projects = response.data;
     },
-    // async insertMany() {
-    //   console.log(this.myJson);
-    //   const mapdata = this.myJson.map((item) => ({
-    //     _id: item._id.$oid,
-    //     shortcode: item.shortcode,
-    //     annotation: {
-    //       description_english: item.description_english,
-    //     },
-    //     object: null,
-    //     project_id: item.project_id,
-    //   }));
-
-    //   console.log(mapdata);
-    // },
     getStarted(data) {
       this.setProjectConfig({
         _id: data._id,
@@ -137,6 +85,8 @@ export default {
         baseImageUrl: data.baseImageUrl,
         priceEach: data.priceEach,
       });
+
+      console.log(data.labelType);
 
       switch (data.labelType) {
         case "annotation":
