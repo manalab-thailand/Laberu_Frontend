@@ -86,8 +86,6 @@ export default {
         priceEach: data.priceEach,
       });
 
-      console.log(data.labelType);
-
       switch (data.labelType) {
         case "annotation":
           this.$router.push({ name: "annotation" });

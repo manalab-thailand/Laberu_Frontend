@@ -42,7 +42,7 @@
               class="column justify-between bg-labelling-list"
               style="height: 576px"
             >
-              <div class="col-11" style="overflow: auto">
+              <div class="col-10" style="overflow: auto">
                 <div class="title-opject">Labelling List</div>
                 <div class="text-subtitle2 text-white text-center">
                   {{ taskImage.shortcode }}
@@ -76,7 +76,31 @@
                   </div>
                 </div>
               </div>
-              <div class="col-1 row q-pt-xs">
+              <div class="col-2 row q-gutter-y-sm">
+                <div class="col-4">
+                  <div class="row justify-center">
+                    <q-btn
+                      rounded
+                      color="secondary"
+                      class="text-weight-bold btn-lg"
+                      style="width: 90%"
+                      label="GUIDE"
+                      @click="guide()"
+                    />
+                  </div>
+                </div>
+                <div class="col-8">
+                  <div class="row justify-center">
+                    <q-btn
+                      rounded
+                      color="negative"
+                      class="text-weight-bold btn-lg"
+                      style="width: 90%"
+                      label="Object not found"
+                      @click="notFound()"
+                    />
+                  </div>
+                </div>
                 <div class="col-6">
                   <div class="row justify-center">
                     <q-btn
@@ -149,11 +173,7 @@ export default {
       dataImage: {
         detection: null,
         shortcode: null,
-        config: [
-          {
-            desc: "ฝาท่อ",
-          },
-        ],
+        config: [],
       },
       taskImage: {
         _id: null,
@@ -227,11 +247,11 @@ export default {
           `${this.databaseUrl}/imagedata/findCountByProjectId`,
           {
             params: {
-              project_id: this.projectConfig._id,
-              // project_id: "test_project",
+              project_id: "61246466d8e99913101d4900",
             },
           }
         );
+
         const countTaskImage = await Axios.get(
           `${this.databaseUrl}/taskimage/findCountImage`,
           {
@@ -260,7 +280,6 @@ export default {
             type: "labelling",
             user_id: this.getUserConfig._id,
             project_id: this.projectConfig._id,
-            // project_id: "test_project",
           }
         );
 
@@ -268,10 +287,7 @@ export default {
           return false;
         }
 
-        // https://storage.googleapis.com/smooth-street/session-1605784707-1176.jpg
-
         this.image.url = `${this.projectConfig.baseImageUrl}/${taskImage.data[0].shortcode}.jpg`;
-        // this.image.url = `https://storage.googleapis.com/smooth-street/${taskImage.data[0].shortcode}.jpg`;
         this.taskImage._id = taskImage.data[0]._id;
         this.taskImage.shortcode = taskImage.data[0].shortcode;
         this.taskImage.status = taskImage.data[0].status;
@@ -288,8 +304,7 @@ export default {
           {
             params: {
               shortcode: this.taskImage.shortcode,
-              project_id: this.projectConfig._id,
-              // project_id: "test_project",
+              project_id: "61246466d8e99913101d4900",
             },
           }
         );
@@ -304,7 +319,6 @@ export default {
       }
     },
     async updateStatusTask(inputStatus, timeStamp) {
-      console.log(inputStatus, timeStamp);
       try {
         await Axios.put(`${this.databaseUrl}/taskimage/updateStatusImage`, {
           type: "labelling",
@@ -318,13 +332,6 @@ export default {
     },
     async onSkip() {
       this.boxes = [];
-      await Axios.put(`${this.databaseUrl}/taskimage/updateProcessImage`, {
-        type: "labelling",
-        id: this.taskImage._id,
-        time_start: 0,
-        status: true,
-        process: true,
-      });
       await this.initState();
     },
     async onSave() {
@@ -353,10 +360,10 @@ export default {
             return {
               name: label[0].id,
               bndbox: {
-                xmin,
-                ymin,
-                xmax,
-                ymax,
+                xmin: xmin.toFixed(0),
+                ymin: ymin.toFixed(0),
+                xmax: xmax.toFixed(0),
+                ymax: ymax.toFixed(0),
               },
             };
           });
@@ -397,6 +404,42 @@ export default {
         });
       }
     },
+    async notFound() {
+      const data = {
+        type: "labelling",
+        shortcode: this.taskImage.shortcode,
+        filename: `${this.taskImage.shortcode}.jpg`,
+        size: [
+          {
+            width: this.dataImage.detection.width,
+            height: this.dataImage.detection.height,
+          },
+        ],
+        object: [
+          {
+            name: "Objects not found",
+            bndbox: {
+              xmin: 0,
+              ymin: 0,
+              xmax: 0,
+              ymax: 0,
+            },
+          },
+        ],
+        time_start: this.taskSuccess.time_start,
+        time_stop: Date.now(),
+        accept: true,
+        user_id: this.getUserConfig._id,
+        task_id: this.taskImage._id,
+        project_id: this.projectConfig._id,
+      };
+
+      await Axios.post(`${this.databaseUrl}/tasksuccess/create`, data);
+      await this.updateStatusTask(false, 0);
+      await this.checkConfig();
+      this.boxes = [];
+      this.initState();
+    },
     async checkConfig() {
       const { data } = await Axios.get(
         `${this.databaseUrl}/tasksuccess/findCountTaskSuccessByShortcode`,
@@ -431,6 +474,12 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    guide() {
+      window.open(
+        "https://storage.googleapis.com/smooth-street-100k/instruction/Label_document.pdf",
+        "_blank"
+      );
     },
     async save() {
       // await Axios.post(`${this.databaseUrl}/imagedata/create`, {

@@ -65,6 +65,12 @@
               </q-tab-panel>
 
               <q-tab-panel name="stat" style="background-color: #393a3f">
+                <div
+                  class="text-h5 text-white text-weight-bold q-mb-lg q-mx-md"
+                >
+                  {{ userData.firstname }} {{ userData.lastname }}
+                  {{ userData.studentId }}
+                </div>
                 <q-expansion-item
                   class="statMenu"
                   v-model="annotation"
@@ -85,7 +91,7 @@
                       </div>
                     </div>
                   </q-card-section>
-                  <q-card-section>
+                  <!-- <q-card-section>
                     <div class="row">
                       <div class="col">
                         <div class="totalText">เป็นจำนวนเงิน</div>
@@ -96,7 +102,7 @@
                         </div>
                       </div>
                     </div>
-                  </q-card-section>
+                  </q-card-section> -->
                 </q-expansion-item>
                 <div class="q-mt-md" />
                 <q-expansion-item
@@ -119,7 +125,7 @@
                       </div>
                     </div>
                   </q-card-section>
-                  <q-card-section>
+                  <!-- <q-card-section>
                     <div class="row">
                       <div class="col">
                         <div class="totalText">เป็นจำนวนเงิน</div>
@@ -130,7 +136,7 @@
                         </div>
                       </div>
                     </div>
-                  </q-card-section>
+                  </q-card-section> -->
                 </q-expansion-item>
                 <div class="q-mt-md" />
                 <q-expansion-item
@@ -153,7 +159,7 @@
                       </div>
                     </div>
                   </q-card-section>
-                  <q-card-section>
+                  <!-- <q-card-section>
                     <div class="row">
                       <div class="col">
                         <div class="totalText">เป็นจำนวนเงิน</div>
@@ -164,7 +170,7 @@
                         </div>
                       </div>
                     </div>
-                  </q-card-section>
+                  </q-card-section> -->
                 </q-expansion-item>
               </q-tab-panel>
             </q-tab-panels>
@@ -193,8 +199,8 @@ export default {
     return {
       tab: "general",
       splitterModel: 20,
-      annotation: true,
-      labelling: false,
+      annotation: false,
+      labelling: true,
       classification: false,
       listItem: [],
       userData: {
@@ -207,6 +213,7 @@ export default {
         career: null,
         province: null,
         location: null,
+        studentId: null,
         countAnnotation: null,
         countObject: null,
         countClassification: null,
@@ -228,6 +235,7 @@ export default {
       this.userData.phonenumber = this.getUserConfig.phonenumber;
       this.userData.career = this.getUserConfig.career;
       this.userData.location = this.getUserConfig.location;
+      this.userData.studentId = this.getUserConfig.studentId;
       this.userData.province = this.getUserConfig.province;
     },
 

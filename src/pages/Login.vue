@@ -170,6 +170,7 @@ export default {
             career: user.data.career,
             location: user.data.location,
             province: user.data.province,
+            studentId: user.data.studentId,
             status: user.data.status,
             uid: user.data.uid,
           });

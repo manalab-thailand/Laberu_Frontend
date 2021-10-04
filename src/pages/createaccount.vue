@@ -178,6 +178,20 @@
                   />
                 </div>
               </div>
+              <div class="row">
+                <div class="col">
+                  <q-input
+                    filled
+                    color="grey-3"
+                    label-color="primary"
+                    outlined
+                    transition-show="jump-up"
+                    transition-hide="jump-up"
+                    v-model="studentId"
+                    label="Student ID ( not require )"
+                  />
+                </div>
+              </div>
               <q-toggle
                 v-model="accept"
                 label="I accept the license and terms"
@@ -221,6 +235,7 @@ export default {
       career: null,
       province: null,
       location: null,
+      studentId: null,
       phone_number: null,
       accept: false,
       career_th: [
@@ -367,6 +382,7 @@ export default {
           career: this.career,
           province: this.province,
           location: this.location,
+          studentId: this.studentId,
           status: "user",
           uid: user.uid,
         }).then(async (response) => {
@@ -399,6 +415,7 @@ export default {
           career: user.career,
           location: user.location,
           province: user.province,
+          studentId: this.studentId,
           status: user.status,
           uid: user.uid,
         });
