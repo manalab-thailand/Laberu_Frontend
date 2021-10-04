@@ -1,0 +1,59 @@
+/* div {
+  border: dashed;
+} */
+
+.title-opject {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  letter-spacing: 3px;
+}
+
+.bg-labelling-list {
+  height: 100%;
+  border-radius: 10px;
+  background-color: rgba(97, 95, 107, 0.5);
+}
+
+.Object {
+  width: 100%;
+}
+
+.context {
+  padding: 0px 20px 0px 10px;
+  width: 100%;
+  position: absolute;
+  top: 6rem;
+}
+
+#image-wrapper {
+  height: 576px;
+  width: 1024px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#label-bar {
+  float: right;
+  margin-right: 50px;
+  width: 220px;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+  padding: 8px 16px;
+}

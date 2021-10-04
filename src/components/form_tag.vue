@@ -1,8 +1,19 @@
 <template>
   <div class="tags-input-container">
-    <input v-model="tagValue" @keyup.enter="addTag" placeholder="พิมพ์..." />
-
-    <div class="tag" v-for="(tag, index) in tags" :key="'tag' + index">
+    <div class="text-center" style="font-size: 18px">ช่องใส่คำอธิบายรูปภาพ</div>
+    <div class="q-mb-sm">
+      <q-input
+        label="กด Enter เพื่อเว้นวรรค"
+        class="q-pa-none"
+        v-model="tagValue"
+        @keyup.enter="addTag"
+      />
+    </div>
+    <div
+      class="q-mt-xl tag shadow-1"
+      v-for="(tag, index) in tags"
+      :key="'tag' + index"
+    >
       <span v-if="activeTag !== index" @click="activeTag = index">
         {{ tag }}
       </span>
@@ -75,11 +86,16 @@ export default {
     font-size: 1rem;
   }
   .tag {
+    margin-left: 3px;
+    margin-top: 3px;
     float: left;
     padding: 3px 5px;
     display: flex;
     justify-content: center;
     cursor: pointer;
+    background-color: #d46aff;
+    color: #ffffff;
+    border-radius: 5px;
     &:hover {
       background-color: #57c340;
       border-radius: 5px;

@@ -29,7 +29,7 @@
                   clearable
                   class="txtInput"
                   type="email"
-                  label="E-mail"
+                  label="อีเมล / e-mail"
                   v-model="email"
                   name="email"
                   id="email"
@@ -43,7 +43,7 @@
                   clearable
                   class="txtInput"
                   type="password"
-                  label="Password"
+                  label="รหัสผ่าน / password"
                   v-model="password"
                   name="password"
                   id="password"
@@ -52,37 +52,29 @@
                     <q-icon name="visibility" />
                   </template>
                 </q-input>
-                <div align="right" class="q-pa-sm">
-                  <q-btn
-                    flat
-                    size="10px"
-                    class="forgetPW"
-                    label="Forgot password?"
-                    style="left: 15px"
-                  />
-                </div>
               </q-form>
-              <div align="center">
+              <div align="center" class="q-mt-xl">
                 <q-btn
                   class="q-mt-sm loginBtn"
                   outline
                   @click="onLogin()"
                   color="primary"
-                  label="Sign in"
+                  label="ลงชื่อเข้าใช้งาน / Sign in"
                 />
               </div>
-              <div class="text-center q-pa-md q-gutter-md">
+              <div class="text-center q-pa-md q-mt-xs q-gutter-md">
                 <q-btn round color="red-8" @click="onGmail()">
                   <q-icon name="fab fa-google-plus-g" size="1.5rem" />
                 </q-btn>
               </div>
               <q-separator inset />
-              <div class="q-mt-sm q-gutter-sm" align="center">
+              <div class="q-gutter-sm" align="center">
                 <q-btn
                   class="createaccBtn"
                   flat
                   color="primary"
-                  label="Create an account"
+                  label="สมัครสมาชิก / Create an account"
+                  @click="$router.push({ name: 'createaccount' })"
                 />
               </div>
             </q-card-section>
@@ -97,37 +89,35 @@
 <script>
 import backgroundDisplay from "../components/login_animation";
 import imageDisplay from "../components/login_image";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters({
+      databaseUrl: "db_config/databaseUrl",
+    }),
+  },
   components: {
     backgroundDisplay,
     imageDisplay,
   },
   data() {
     return {
-      config: {
-        // url: "https://laberu-ptrmd2zvzq-as.a.run.app",
-        // url: "http://localhost:8080",
-      },
       email: null,
       password: null,
     };
   },
   methods: {
     ...mapActions({
-      setUserEmail: "user_email/setUserEmail",
-      setUserID: "user_id/setUserID",
-      setUserUID: "user_uid/setUserUID",
+      setUserConfig: "user_config/setUserConfig",
+      setUserRegister: "user_config/setUserRegister",
     }),
-    async onLogin() {
+    onLogin() {
       this.$auth
         .signInWithEmailAndPassword(this.email, this.password)
         .then((userCredential) => {
           var user = userCredential.user;
           if (user != null) {
-            this.setUserUID({ uid: user.uid });
-            this.setUserEmail({ email: user.email });
-            this.authStateChange();
+            this.checkLogin(user.uid);
           }
         })
         .catch((error) => {
@@ -140,12 +130,6 @@ export default {
         });
     },
 
-    async authStateChange() {
-      this.$auth.onAuthStateChanged((user) => {
-        this.checkLogin(user.uid);
-      });
-    },
-
     async onGmail() {
       const provider = new this.$firebase.auth.GoogleAuthProvider();
       this.$auth
@@ -153,8 +137,7 @@ export default {
         .then((result) => {
           var user = result.user;
           if (user != null) {
-            this.setUserUID({ uid: user.uid });
-            this.setUserEmail({ email: user.email });
+            this.setUserRegister({ uid: user.uid, email: user.email });
             this.checkLogin(user.uid);
           }
         })
@@ -165,17 +148,38 @@ export default {
     },
     async checkLogin(uid) {
       try {
-        const response = await this.$axios.get(
-          `${this.config.url}/user/check_login/uid=${uid}`
+        const user = await this.$axios.get(
+          `${this.databaseUrl}/user-laberu/checkuserActive`,
+          {
+            params: {
+              uid,
+            },
+          }
         );
-        if (response.data.length == 0) {
+
+        if (!user.data) {
           this.$router.push({ name: "register" });
-        } else if (response.data[0].status == "user") {
-          this.setUserID({ id: response.data[0]._id });
-          this.$router.push({ name: "index" });
-        } else if (response.data[0].status == "admin") {
-          this.setUserID({ id: response.data[0]._id });
-          this.$router.push({ name: "admin" });
+        } else {
+          this.setUserConfig({
+            _id: user.data._id,
+            firstname: user.data.firstname,
+            lastname: user.data.lastname,
+            birth: user.data.birth,
+            email: user.data.email,
+            phonenumber: user.data.phonenumber,
+            career: user.data.career,
+            location: user.data.location,
+            province: user.data.province,
+            studentId: user.data.studentId,
+            status: user.data.status,
+            uid: user.data.uid,
+          });
+
+          if (user.data.status == "user") {
+            this.$router.push({ name: "home" });
+          } else {
+            this.$router.push({ name: "admin" });
+          }
         }
       } catch (error) {
         console.log(error);

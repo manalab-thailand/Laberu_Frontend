@@ -14,6 +14,49 @@
                     color="grey-3"
                     label-color="primary"
                     outlined
+                    v-model="email"
+                    label="อีเมล / e-mail"
+                    :rules="[
+                      (val) => (val && val.length > 0) || 'กรุณาใส่อีเมล',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="person" color="primary" />
+                    </template>
+                  </q-input>
+                </div>
+                <div style="margin: 0 10px"></div>
+                <div class="col">
+                  <q-input
+                    :type="isPwd ? 'password' : 'text'"
+                    filled
+                    color="grey-3"
+                    label-color="primary"
+                    outlined
+                    v-model="password"
+                    label="รหัสผ่าน / password"
+                    :rules="[
+                      (val) => (val && val.length > 0) || 'กรุณาใส่รหัสผ่าน',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon
+                        :name="isPwd ? 'visibility_off' : 'visibility'"
+                        class="cursor-pointer"
+                        @click="isPwd = !isPwd"
+                        color="primary"
+                      />
+                    </template>
+                  </q-input>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <q-input
+                    filled
+                    color="grey-3"
+                    label-color="primary"
+                    outlined
                     v-model="fname"
                     label="ชื่อ / Name"
                     :rules="[
@@ -107,10 +150,10 @@
                     color="grey-3"
                     label-color="primary"
                     outlined
-                    v-model="career"
-                    :options="career_th"
                     transition-show="jump-up"
                     transition-hide="jump-up"
+                    v-model="career"
+                    :options="career_th"
                     label="อาชีพ / Career"
                     :rules="[
                       (val) => (val && val.length > 0) || 'กรุณาใส่อาชีพ',
@@ -172,28 +215,29 @@
 
 <script>
 import backgroundDisplay from "../components/login_animation";
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { QSpinnerFacebook } from "quasar";
 import Axios from "app/node_modules/axios";
 export default {
   computed: {
     ...mapGetters({
       databaseUrl: "db_config/databaseUrl",
-      getUserRegister: "user_config/getUserRegister",
     }),
   },
   data() {
     return {
+      isPwd: true,
+      email: null,
+      password: null,
       fname: null,
       lname: null,
       birth: null,
       career: null,
       province: null,
       location: null,
+      studentId: null,
       phone_number: null,
       accept: false,
-      studentId: null,
       career_th: [
         "การเกษตร",
         "การศึกษา",
@@ -292,7 +336,7 @@ export default {
     ...mapActions({
       setUserConfig: "user_config/setUserConfig",
     }),
-    onSubmit() {
+    async onSubmit() {
       if (this.accept !== true) {
         this.$q.notify({
           color: "red-5",
@@ -309,39 +353,54 @@ export default {
         });
 
         this.showLoading();
-        this.createAccount();
+        await this.createAccountFirebase();
       }
     },
-    async createAccount() {
+    createAccountFirebase() {
+      this.$auth
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          this.createAccount(user);
+          // ...
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // ..
+        });
+    },
+    async createAccount(user) {
       try {
         await Axios.post(`${this.databaseUrl}/user-laberu/create`, {
           firstname: this.fname,
           lastname: this.lname,
-          email: this.getUserRegister.email,
+          email: this.email,
           birth: this.birth,
           phonenumber: this.phone_number,
           career: this.career,
           province: this.province,
-          studentId: this.studentId,
           location: this.location,
+          studentId: this.studentId,
           status: "user",
-          uid: this.getUserRegister.uid,
+          uid: user.uid,
         }).then(async (response) => {
           this.onTimeout();
-          await this.getUserID();
+          await this.getUserID(user);
           this.$router.push({ name: "home" });
         });
       } catch (error) {
         console.log(error);
       }
     },
-    async getUserID() {
+    async getUserID(firebaseUser) {
       try {
         const user = await this.$axios.get(
           `${this.databaseUrl}/user-laberu/checkuserActive`,
           {
             params: {
-              uid: this.getUserUid,
+              uid: firebaseUser.uid,
             },
           }
         );
